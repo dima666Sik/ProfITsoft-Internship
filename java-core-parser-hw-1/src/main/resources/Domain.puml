@@ -1,0 +1,51 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class Planet{
+    - String name;
+    - Mass mass;
+    - Diameter diameter;
+    - boolean hasRings;
+    - boolean hasMoons;
+    --getters & setters--
+}
+
+class PlanetarySystem{}
+
+class Diameter{
+    - SIUnitLength unit;
+    --getters & setters--
+}
+
+class Mass{
+    - SIUnitMass unit;
+    --getters & setters--
+}
+
+enum SIUnitLength {
+    METER,
+    KILOMETER,
+    CENTIMETER,
+}
+
+enum SIUnitMass {
+    KILOGRAM,
+    GRAM,
+}
+
+abstract class SIBasicPhysicalQuantity{
+ # double value;
+}
+
+SIBasicPhysicalQuantity <|-- Diameter
+SIBasicPhysicalQuantity <|-- Mass
+
+PlanetarySystem *-- Planet
+
+Planet *-- Diameter
+Planet *-- Mass
+
+Diameter *-- SIUnitLength
+Mass *-- SIUnitMass
+
+@enduml

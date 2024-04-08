@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<statistics>
+    <item>
+        <value>Hydrogen, Helium</value>
+        <count>5</count>
+    </item>
+    <item>
+        <value>Oxygen, Nitrogen, Carbon dioxide</value>
+        <count>4</count>
+    </item>
+    <item>
+        <value>Nitrogen, Carbon dioxide</value>
+        <count>4</count>
+    </item>
+    <item>
+        <value>Oxygen, Nitrogen</value>
+        <count>3</count>
+    </item>
+    <item>
+        <value>Magnesium</value>
+        <count>2</count>
+    </item>
+    <item>
+        <value>Beryllium</value>
+        <count>2</count>
+    </item>
+</statistics>
