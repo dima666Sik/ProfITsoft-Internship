@@ -3,7 +3,7 @@ package ua.code.intership.proft.it.soft.service.generator;
 import lombok.extern.log4j.Log4j2;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import ua.code.intership.proft.it.soft.model.dto.StatisticsDto;
+import ua.code.intership.proft.it.soft.model.dto.StatisticsInfoDto;
 import ua.code.intership.proft.it.soft.service.statistic.PlanetStatisticsProcessor;
 import ua.code.intership.proft.it.soft.service.statistic.StatisticsProcessor;
 
@@ -61,7 +61,7 @@ public class XmlFileCreator<T extends File> implements FileGenerator<T> {
 
     private File generateXmlFile(String pathToXmlDirectory, String attribute) {
         try {
-            Set<StatisticsDto> statisticsDtoSet
+            Set<StatisticsInfoDto<? extends Comparable<?>>> statisticsInfoDtoSet
                     = statisticsProcessor.getStatisticsSortedSet((el1, el2) -> el2.getNumberOfRepetitions() - el1.getNumberOfRepetitions());
 
             DocumentBuilderFactory
@@ -74,17 +74,17 @@ public class XmlFileCreator<T extends File> implements FileGenerator<T> {
             doc.appendChild(rootElement);
 
             // Add statistics items to the XML document
-            for (StatisticsDto statisticsDto : statisticsDtoSet) {
+            for (StatisticsInfoDto<?> statisticsInfoDto : statisticsInfoDtoSet) {
                 Element item = doc.createElement("item");
 
                 // Value
                 Element value = doc.createElement("value");
-                value.appendChild(doc.createTextNode(String.valueOf(statisticsDto.getAttribute())));
+                value.appendChild(doc.createTextNode(String.valueOf(statisticsInfoDto.getAttribute())));
                 item.appendChild(value);
 
                 // Count
                 Element count = doc.createElement("count");
-                count.appendChild(doc.createTextNode(String.valueOf(statisticsDto.getNumberOfRepetitions())));
+                count.appendChild(doc.createTextNode(String.valueOf(statisticsInfoDto.getNumberOfRepetitions())));
                 item.appendChild(count);
 
                 rootElement.appendChild(item);
