@@ -13,12 +13,15 @@ import java.util.List;
 import static ua.code.intership.proft.it.soft.service.util.random.Randomize.generateRandomize;
 
 public final class ConstantGenerator {
-    private ConstantGenerator(){}
+    private ConstantGenerator() {
+    }
+
     public static List<Planet> getPlanets(int countPlanets) {
         List<Planet> planets = new ArrayList<>();
-        for (int i = 0; i < countPlanets; i++) {
+        int i = 0;
+        while (i < countPlanets) {
             int atmosphericCompositionIndex = generateRandomize(0, 10);
-            planets.add(generatePlanet(i,
+            planets.add(generatePlanet(++i,
                     "Planet" + generateRandomize(0, 1000),
                     generateRandomize(0.01, 10),
                     generateRandomize(4800, 10000),

@@ -1,9 +1,6 @@
 package ua.code.intership.proft.it.soft.model.si.data;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 @Getter
@@ -11,6 +8,8 @@ import lombok.experimental.SuperBuilder;
 @ToString
 @EqualsAndHashCode
 @SuperBuilder
+@NoArgsConstructor
+@AllArgsConstructor
 public abstract class SIBasicPhysicalQuantity {
     protected double value;
 }

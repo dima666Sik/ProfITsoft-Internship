@@ -19,6 +19,6 @@ class JsonToXmlParserTest {
 
     @Test
     void testParse() {
-        Assertions.assertEquals(null, fileParser.parse(PATH_TO_JSON_FILE_LIST, PATH_TO_XML_FILE_LIST, CoreAttribute.ATMOSPHERIC_COMPOSITION));
+        Assertions.assertDoesNotThrow(() -> fileParser.parse(PATH_TO_JSON_FILE_LIST, PATH_TO_XML_FILE_LIST, CoreAttribute.ATMOSPHERIC_COMPOSITION));
     }
 }

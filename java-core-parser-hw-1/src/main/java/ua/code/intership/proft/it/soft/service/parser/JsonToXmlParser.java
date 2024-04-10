@@ -17,8 +17,8 @@ public class JsonToXmlParser implements FileParser {
      * 1.2.2 Processing the statistics info from the file chunks +
      * ---
      * 1.2.3 After work all parallel processing files we will get statistics +
-     * 1.3 Generate xml based on the statistics
-     * 1.4 Returning the statistics_by_{attribute}.xml file with statistics by all files
+     * 1.3 Generate xml based on the statistics +
+     * 1.4 Returning the statistics_by_{attribute}.xml file with statistics by all files +
      */
     @Override
     public File parse(String pathToJsonFiles, String pathToXmlFile, String attribute) {

@@ -2,7 +2,7 @@
 <statistics>
     <item>
         <value>Nitrogen</value>
-        <count>12</count>
+        <count>14</count>
     </item>
     <item>
         <value>Oxygen</value>
@@ -13,19 +13,19 @@
         <count>8</count>
     </item>
     <item>
-        <value>Helium</value>
-        <count>5</count>
-    </item>
-    <item>
-        <value>Hydrogen</value>
-        <count>5</count>
+        <value>Beryllium</value>
+        <count>6</count>
     </item>
     <item>
         <value>Magnesium</value>
-        <count>2</count>
+        <count>3</count>
     </item>
     <item>
-        <value>Beryllium</value>
-        <count>2</count>
+        <value>Helium</value>
+        <count>3</count>
+    </item>
+    <item>
+        <value>Hydrogen</value>
+        <count>3</count>
     </item>
 </statistics>

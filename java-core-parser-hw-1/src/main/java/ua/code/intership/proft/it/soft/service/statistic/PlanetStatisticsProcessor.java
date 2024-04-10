@@ -1,21 +1,22 @@
 package ua.code.intership.proft.it.soft.service.statistic;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import com.google.gson.stream.JsonReader;
+import com.fasterxml.jackson.core.JsonFactory;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonToken;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import ua.code.intership.proft.it.soft.model.Planet;
 import ua.code.intership.proft.it.soft.model.dto.StatisticsInfoDto;
 import ua.code.intership.proft.it.soft.service.parser.StringParser;
 import ua.code.intership.proft.it.soft.service.parser.TypeParser;
 
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
-import java.util.*;
+import java.util.Comparator;
+import java.util.LinkedHashSet;
+import java.util.Optional;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
-
-import static ua.code.intership.proft.it.soft.model.attribute.CoreAttribute.*;
 
 public final class PlanetStatisticsProcessor implements StatisticsProcessor {
     private static PlanetStatisticsProcessor instance;
@@ -35,27 +36,26 @@ public final class PlanetStatisticsProcessor implements StatisticsProcessor {
 
     @Override
     public void collectStatistics(File file, String attribute) throws IOException {
-        try (JsonReader jsonReader = new JsonReader(new FileReader(file.getPath()))) {
-            Gson gson = new Gson();
+        ObjectMapper objectMapper = new ObjectMapper();
+        JsonFactory jsonFactory = new JsonFactory();
+        try (JsonParser jsonParser = jsonFactory.createParser(file)) {
+            if (jsonParser.nextToken() != JsonToken.START_ARRAY) {
+                throw new IllegalArgumentException("JSON data should start with an array");
+            }
 
-            jsonReader.beginArray();
+            while (jsonParser.nextToken() != JsonToken.END_ARRAY) {
 
-            while (jsonReader.hasNext()) {
-                JsonElement jsonElement = gson.fromJson(jsonReader, JsonElement.class);
-
-                Planet planet = gson.fromJson(jsonElement, Planet.class);
+                Planet planet = objectMapper.readValue(jsonParser, Planet.class);
 
                 switch (attribute) {
-                    case ID -> processStatistic(planet.getId());
-                    case NAME -> processStatistic(planet.getName());
-                    case HAS_MOONS -> processStatistic(planet.isHasMoons());
-                    case HAS_RINGS -> processStatistic(planet.isHasRings());
-                    case ATMOSPHERIC_COMPOSITION -> processStatistic(planet.getAtmosphericComposition());
+                    case "id" -> processStatistic(planet.getId());
+                    case "name" -> processStatistic(planet.getName());
+                    case "hasMoons" -> processStatistic(planet.isHasMoons());
+                    case "hasRings" -> processStatistic(planet.isHasRings());
+                    case "atmosphericComposition" -> processStatistic(planet.getAtmosphericComposition());
                     default -> throw new IllegalArgumentException("Unknown attribute: " + attribute);
                 }
             }
-
-            jsonReader.endArray();
         }
     }
 

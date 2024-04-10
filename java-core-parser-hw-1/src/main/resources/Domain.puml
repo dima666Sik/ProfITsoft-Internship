@@ -10,7 +10,11 @@ class Planet{
     --getters & setters--
 }
 
-class PlanetarySystem{}
+class PlanetarySystem{
+    - long id;
+    - String name;
+    --getters & setters--
+}
 
 class Diameter{
     - SIUnitLength unit;
@@ -35,6 +39,12 @@ enum SIUnitMass {
 
 abstract class SIBasicPhysicalQuantity{
  # double value;
+}
+
+class StatisticsInfoDto{
+    - T attribute;
+    - volatile int numberOfRepetitions;
+    + void incrementNumberOfRepetitions();
 }
 
 SIBasicPhysicalQuantity <|-- Diameter
