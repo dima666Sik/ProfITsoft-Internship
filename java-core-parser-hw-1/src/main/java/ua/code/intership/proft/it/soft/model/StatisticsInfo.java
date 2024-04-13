@@ -1,10 +1,10 @@
-package ua.code.intership.proft.it.soft.model.dto;
+package ua.code.intership.proft.it.soft.model;
 
 import lombok.*;
 
 @Data
 @Builder
-public class StatisticsInfoDto<T extends Comparable<T>> {
+public class StatisticsInfo<T extends Comparable<T>> {
     private T attribute;
     @EqualsAndHashCode.Exclude
     private volatile int numberOfRepetitions;
