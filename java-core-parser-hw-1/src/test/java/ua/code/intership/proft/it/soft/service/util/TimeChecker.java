@@ -1,5 +1,8 @@
 package ua.code.intership.proft.it.soft.service.util;
 
+import lombok.extern.log4j.Log4j2;
+
+@Log4j2
 public final class TimeChecker {
     private TimeChecker() {}
 
@@ -7,7 +10,7 @@ public final class TimeChecker {
         long startTime = System.nanoTime();
         assertionsConsumer.acceptAndProcessing();
         long endTime = System.nanoTime();
-        System.out.println("Work time this test: " + (endTime - startTime));
+        log.info("Work time this test: " + (endTime - startTime));
     }
 
 }

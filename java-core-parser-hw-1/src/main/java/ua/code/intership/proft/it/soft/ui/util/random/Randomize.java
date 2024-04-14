@@ -1,4 +1,4 @@
-package ua.code.intership.proft.it.soft.service.util.random;
+package ua.code.intership.proft.it.soft.ui.util.random;
 
 public final class Randomize {
     private Randomize() {

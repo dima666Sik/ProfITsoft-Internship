@@ -18,6 +18,7 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.File;
 import java.io.IOException;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.CountDownLatch;
@@ -28,75 +29,31 @@ import java.util.concurrent.Executors;
  * XmlFileCreator is a class that implements the FileCreator interface and
  * provides functionality to generate XML files
  * based on statistics collected from JSON data.
- *
- * @param <T> the type of the input data (e.g., File)
  */
 @Log4j2
-public class XmlFileCreator<T extends File> implements FileCreator<T> {
+public class XmlFileCreator implements FileCreator {
     private final StatisticsProcessor statisticsProcessor = PlanetStatisticsProcessor.getInstance();
 
     /**
-     * Generates an XML file containing statistics data from the provided JSON files.
+     * Generates an XML file containing statistics data from collected data that
+     * we can get access to by {@link StatisticsProcessor#getStatisticsSortedSet(Comparator)}.
      * The statistics data is sorted based on the number of repetitions of the specified attribute.
-     *
-     * @param pathToXmlDirectory the directory where the XML file will be generated
-     * @param files              the array of JSON files to process
-     * @param countThreads       the number of threads to use for processing the files concurrently
-     * @param attribute          the attribute to collect statistics for
-     * @return the generated XML file
-     */
-    @Override
-    public File generate(String pathToXmlDirectory, List<T> files, int countThreads, String attribute) {
-        if (files == null || files.isEmpty())
-            throw new IllegalArgumentException("Files list is empty or null! " +
-                    "Choose another directory with files, or create file into it.");
-
-        if (countThreads <= 0)
-            throw new IllegalArgumentException("Count threads must be greater than zero! " +
-                    "Please select right count threads to thread pool.");
-
-        ExecutorService executor = Executors.newFixedThreadPool(countThreads);
-        CountDownLatch latch = new CountDownLatch(files.size());
-
-        for (T file : files) {
-            executor.execute(() -> {
-                try {
-                    statisticsProcessor.collectStatistics(file, attribute);
-                    log.info("File {} was read and analyzed.", file.getName());
-                } catch (IOException e) {
-                    log.error("File {} have problem with processing .json file: ", file.getName(), e);
-                } finally {
-                    latch.countDown();
-                    log.info("Reducing latch count, current value is:{}", latch.getCount());
-                }
-
-            });
-        }
-
-        try {
-            latch.await();
-        } catch (InterruptedException e) {
-            log.error("Interrupted while waiting for a file to complete processing.", e);
-            Thread.currentThread()
-                  .interrupt();
-        }
-
-        executor.shutdown();
-
-        return generateXmlFile(pathToXmlDirectory, attribute);
-    }
-    /**
-     * Generates an XML file based on the collected statistics sorted by the number of repetitions.
      *
      * @param pathToXmlDirectory the path to the directory where the XML file will be generated
      * @param attribute          the attribute to include in the file name and XML content
      * @return the generated XML file
      * @throws FileGenerationException if an error occurs while generating the XML file
      */
-    private File generateXmlFile(String pathToXmlDirectory, String attribute) {
+    @Override
+    public File generate(String pathToXmlDirectory, String attribute) {
         try {
+            Comparator<StatisticsInfo<? extends Comparable<?>>> comparator =
+                    (el1, el2) -> el2.getNumberOfRepetitions() - el1.getNumberOfRepetitions();
+
             Set<StatisticsInfo<? extends Comparable<?>>> statisticsInfoSetByNumberOfRepetitions
-                    = statisticsProcessor.getStatisticsSortedSet((el1, el2) -> el2.getNumberOfRepetitions() - el1.getNumberOfRepetitions());
+                    = statisticsProcessor.getStatisticsSortedSet(comparator);
+
+            statisticsProcessor.clearStatisticsSet();
 
             Document doc = createXmlDocument(statisticsInfoSetByNumberOfRepetitions);
             return writeXmlToFile(doc, pathToXmlDirectory, attribute);
@@ -105,6 +62,7 @@ public class XmlFileCreator<T extends File> implements FileCreator<T> {
             throw new FileGenerationException("Error generating XML file", e);
         }
     }
+
     /**
      * Generates an XML document from the provided set of statistics information.
      *
@@ -133,6 +91,7 @@ public class XmlFileCreator<T extends File> implements FileCreator<T> {
 
         return doc;
     }
+
     /**
      * Writes the XML document to a file in the specified directory.
      *

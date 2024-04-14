@@ -3,16 +3,18 @@ package ua.code.intership.proft.it.soft.service.reader;
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
+import lombok.extern.log4j.Log4j2;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.function.Consumer;
 
-import static ua.code.intership.proft.it.soft.service.util.JacksonConst.OBJECT_MAPPER;
+import static ua.code.intership.proft.it.soft.service.util.constant.JacksonConst.OBJECT_MAPPER;
 
 /**
  * A JSON file reader that uses Jackson to parse and deserialize objects from a JSON file.
  */
+@Log4j2
 public class JsonFileReader implements FileReader {
     private final JsonFactory jsonFactory = new JsonFactory();
 
@@ -31,6 +33,7 @@ public class JsonFileReader implements FileReader {
     public <T> void readFile(File file, Class<T> clazzObjInJson, Consumer<T> consumer) throws IOException {
         try (JsonParser jsonParser = jsonFactory.createParser(file)) {
             if (jsonParser.nextToken() != JsonToken.START_ARRAY) {
+                log.error("JSON data should start with an array but now it is: " + jsonParser.currentToken());
                 throw new IllegalArgumentException("JSON data should start with an array");
             }
 

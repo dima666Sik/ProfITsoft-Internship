@@ -5,12 +5,16 @@ import ua.code.intership.proft.it.soft.service.exception.FileGenerationException
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.atomic.AtomicReference;
 
-import static ua.code.intership.proft.it.soft.service.util.JacksonConst.OBJECT_MAPPER;
+import static ua.code.intership.proft.it.soft.service.util.generator.FileGenerator.generateDirectory;
+import static ua.code.intership.proft.it.soft.service.util.constant.JacksonConst.OBJECT_MAPPER;
 
 /**
  * JsonObjectMultipleFileGenerator is a class that implements the ObjectMultipleFileGenerator interface.
@@ -33,6 +37,10 @@ public class JsonObjectMultipleFileGenerator<T> implements ObjectMultipleFileGen
      */
     @Override
     public void generate(String pathToJsonDirectory, List<List<T>> listObjectsList, int countThreads) {
+        Path directory = Path.of(pathToJsonDirectory);
+
+        if (!Files.exists(directory)) generateDirectory(directory);
+
         if (listObjectsList == null || listObjectsList.isEmpty())
             throw new IllegalArgumentException("The list of objects is empty!");
 
@@ -42,19 +50,19 @@ public class JsonObjectMultipleFileGenerator<T> implements ObjectMultipleFileGen
 
         ExecutorService executor = Executors.newFixedThreadPool(countThreads);
         CountDownLatch latch = new CountDownLatch(listObjectsList.size());
+        AtomicReference<Throwable> exceptionRef = new AtomicReference<>();
 
         for (int i = 0; i < listObjectsList.size(); i++) {
             final int outerIndex = i;
 
             executor.execute(() -> {
                 File file = new File(pathToJsonDirectory + File.separator + "planet" + outerIndex + ".json");
-                log.info("File {} was generated.", file.getName());
                 try {
                     OBJECT_MAPPER.writeValue(file, listObjectsList.get(outerIndex));
                     log.info("JSON data for file:{} was generated.", file.getName());
                 } catch (IOException e) {
                     log.error("Generating file:{} with .json format was not successful.", file.getName(), e);
-                    throw new FileGenerationException("Generating file:" + file.getName() + " with .json format was not successful.");
+                    exceptionRef.set(e);
                 } finally {
                     latch.countDown();
                 }
@@ -70,7 +78,11 @@ public class JsonObjectMultipleFileGenerator<T> implements ObjectMultipleFileGen
         }
 
         executor.shutdown();
-    }
 
+        Throwable exception = exceptionRef.get();
+        if (exception != null) {
+            throw new FileGenerationException("Error generating files!");
+        }
+    }
 
 }

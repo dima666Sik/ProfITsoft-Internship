@@ -17,8 +17,9 @@ import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static ua.code.intership.proft.it.soft.service.util.FileProcessor.clearFilesByDirectory;
-import static ua.code.intership.proft.it.soft.service.util.constant.ConstantGenerator.DEFAULT_COUNT_THREADS_TO_PROCESSING_FILES;
-import static ua.code.intership.proft.it.soft.service.util.constant.FileConstant.*;
+import static ua.code.intership.proft.it.soft.ui.util.constant.PlanetGeneratorConst.PLANET_LISTS;
+import static ua.code.intership.proft.it.soft.service.util.constant.ParserConst.DEFAULT_COUNT_THREADS_TO_PROCESSING_FILES;
+import static ua.code.intership.proft.it.soft.service.util.constant.FileTestConst.*;
 
 class PlanetStatisticsProcessorTest {
     private StatisticsProcessor processor;
@@ -28,8 +29,8 @@ class PlanetStatisticsProcessorTest {
     void setUp() {
         processor = PlanetStatisticsProcessor.getInstance();
         ObjectMultipleFileGenerator<Planet> objectMultipleFileGenerator = new JsonObjectMultipleFileGenerator<>();
-        objectMultipleFileGenerator.generate(PATH_TO_JSON_FILE_LIST, PLANET_LISTS.subList(0, 1), DEFAULT_COUNT_THREADS_TO_PROCESSING_FILES);
-        File[] files = new File(PATH_TO_JSON_FILE_LIST).listFiles();
+        objectMultipleFileGenerator.generate(PATH_TO_TEST_JSON_FILE_LIST, PLANET_LISTS.subList(0, 1), DEFAULT_COUNT_THREADS_TO_PROCESSING_FILES);
+        File[] files = new File(PATH_TO_TEST_JSON_FILE_LIST).listFiles();
 
         assertNotNull(files, "files should not be null!");
         assertNotNull(PLANET_LISTS, "PLANET_LISTS should not be null!");
@@ -38,7 +39,7 @@ class PlanetStatisticsProcessorTest {
 
     @AfterEach
     void tearDown() {
-        clearFilesByDirectory(PATH_TO_JSON_FILE_LIST);
+        clearFilesByDirectory(PATH_TO_TEST_JSON_FILE_LIST);
     }
 
     @Test

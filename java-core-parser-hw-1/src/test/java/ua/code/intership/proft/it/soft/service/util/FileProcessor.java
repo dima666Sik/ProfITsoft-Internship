@@ -1,10 +1,13 @@
 package ua.code.intership.proft.it.soft.service.util;
 
+import lombok.extern.log4j.Log4j2;
+
 import java.io.File;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+@Log4j2
 public final class FileProcessor {
     public static void clearFilesByDirectory(String path) {
         File[] files = new File(path).listFiles();
@@ -16,7 +19,7 @@ public final class FileProcessor {
             for (File file : files) {
                 executor.execute(() -> {
                     try {
-                        System.out.println(file.delete()
+                        log.info(file.delete()
                                 ? "The file: " + file.getName() + " was deleted successfully!"
                                 : "Deleting the file: " + file.getName() + "was failed!");
                     } finally {

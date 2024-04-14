@@ -27,10 +27,10 @@ public abstract class AbstractStatisticsProcessor implements StatisticsProcessor
      * related to the processed information with unknown type that extends {@link Comparable} interface
      * that allows to sorted by unknown attribute.
      */
-    private static final Set<StatisticsInfo<? extends Comparable<?>>> STATISTICS_INFO_DTO_SET;
+    private static final Set<StatisticsInfo<? extends Comparable<?>>> STATISTICS_INFO_SET;
 
     static {
-        STATISTICS_INFO_DTO_SET = ConcurrentHashMap.newKeySet();
+        STATISTICS_INFO_SET = ConcurrentHashMap.newKeySet();
     }
 
     /**
@@ -56,8 +56,8 @@ public abstract class AbstractStatisticsProcessor implements StatisticsProcessor
      * @return true if the given attribute is present in the set of collected statistics, false otherwise
      */
     private <T extends Comparable<T>> boolean isExistInSetStatistics(T attribute) {
-        return STATISTICS_INFO_DTO_SET.stream()
-                                      .anyMatch(el -> el.getAttribute()
+        return STATISTICS_INFO_SET.stream()
+                                  .anyMatch(el -> el.getAttribute()
                                                         .equals(attribute));
     }
 
@@ -89,10 +89,10 @@ public abstract class AbstractStatisticsProcessor implements StatisticsProcessor
     private synchronized <T extends Comparable<T>> void addStatistic(T valueAttribute) {
 
         if (isExistInSetStatistics(valueAttribute)) {
-            Optional<StatisticsInfo<?>> optionalStatisticsDto = STATISTICS_INFO_DTO_SET.stream()
-                                                                                       .filter(el -> el.getAttribute()
+            Optional<StatisticsInfo<? extends Comparable<?>>> optionalStatisticsDto = STATISTICS_INFO_SET.stream()
+                                                                                   .filter(el -> el.getAttribute()
                                                                                                        .equals(valueAttribute))
-                                                                                       .findFirst();
+                                                                                   .findFirst();
             optionalStatisticsDto.ifPresent(StatisticsInfo::incrementNumberOfRepetitions);
             return;
         }
@@ -101,7 +101,7 @@ public abstract class AbstractStatisticsProcessor implements StatisticsProcessor
                                                                                .attribute(valueAttribute)
                                                                                .numberOfRepetitions(1)
                                                                                .build();
-        STATISTICS_INFO_DTO_SET.add(statisticsInfo);
+        STATISTICS_INFO_SET.add(statisticsInfo);
     }
 
     /**
@@ -112,8 +112,8 @@ public abstract class AbstractStatisticsProcessor implements StatisticsProcessor
      */
     @Override
     public Set<StatisticsInfo<? extends Comparable<?>>> getStatisticsSet() throws IllegalAccessException {
-        if (STATISTICS_INFO_DTO_SET.isEmpty()) throw new IllegalAccessException("Set hasn't statistics!");
-        return STATISTICS_INFO_DTO_SET;
+        if (STATISTICS_INFO_SET.isEmpty()) throw new IllegalAccessException("Set hasn't statistics!");
+        return STATISTICS_INFO_SET;
     }
 
     /**
@@ -128,5 +128,12 @@ public abstract class AbstractStatisticsProcessor implements StatisticsProcessor
         return getStatisticsSet().stream()
                                  .sorted(comparator)
                                  .collect(Collectors.toCollection(LinkedHashSet::new));
+    }
+    /**
+     * Clears the set of collected statistics.
+     */
+    @Override
+    public void clearStatisticsSet(){
+        STATISTICS_INFO_SET.clear();
     }
 }

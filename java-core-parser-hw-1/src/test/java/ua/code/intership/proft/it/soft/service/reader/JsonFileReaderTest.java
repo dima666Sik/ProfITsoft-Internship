@@ -13,8 +13,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import ua.code.intership.proft.it.soft.model.Planet;
 import ua.code.intership.proft.it.soft.service.generator.JsonObjectMultipleFileGenerator;
 import ua.code.intership.proft.it.soft.service.generator.ObjectMultipleFileGenerator;
-import ua.code.intership.proft.it.soft.service.generator.XmlFileCreator;
-import ua.code.intership.proft.it.soft.service.statistic.StatisticsProcessor;
 import ua.code.intership.proft.it.soft.service.util.reflect.ClassMetadataProvider;
 
 import java.io.File;
@@ -22,8 +20,9 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static ua.code.intership.proft.it.soft.service.util.FileProcessor.clearFilesByDirectory;
-import static ua.code.intership.proft.it.soft.service.util.constant.ConstantGenerator.DEFAULT_COUNT_THREADS_TO_PROCESSING_FILES;
-import static ua.code.intership.proft.it.soft.service.util.constant.FileConstant.*;
+import static ua.code.intership.proft.it.soft.ui.util.constant.PlanetGeneratorConst.PLANET_LISTS;
+import static ua.code.intership.proft.it.soft.service.util.constant.ParserConst.DEFAULT_COUNT_THREADS_TO_PROCESSING_FILES;
+import static ua.code.intership.proft.it.soft.service.util.constant.FileTestConst.*;
 
 @ExtendWith(MockitoExtension.class)
 class JsonFileReaderTest {
@@ -37,15 +36,15 @@ class JsonFileReaderTest {
         fileReader = new JsonFileReader();
         ObjectMultipleFileGenerator<Planet> objectMultipleFileGenerator = new JsonObjectMultipleFileGenerator<>();
         List<List<Planet>> listOfObjects = PLANET_LISTS.subList(0, 1);
-        objectMultipleFileGenerator.generate(PATH_TO_JSON_FILE_LIST, listOfObjects, DEFAULT_COUNT_THREADS_TO_PROCESSING_FILES);
-        File[] files = new File(PATH_TO_JSON_FILE_LIST).listFiles();
+        objectMultipleFileGenerator.generate(PATH_TO_TEST_JSON_FILE_LIST, listOfObjects, DEFAULT_COUNT_THREADS_TO_PROCESSING_FILES);
+        File[] files = new File(PATH_TO_TEST_JSON_FILE_LIST).listFiles();
         assertNotNull(files, "files should not be null!");
         file = files[0];
     }
 
     @AfterEach
     void tearDown() {
-        clearFilesByDirectory(PATH_TO_JSON_FILE_LIST);
+        clearFilesByDirectory(PATH_TO_TEST_JSON_FILE_LIST);
     }
 
     @Test
