@@ -1,0 +1,17 @@
+ua.code.intership.proft.it.soft
+ua.code.intership.proft.it.soft.model
+ua.code.intership.proft.it.soft.model.attribute
+ua.code.intership.proft.it.soft.model.si.data
+ua.code.intership.proft.it.soft.service.exception
+ua.code.intership.proft.it.soft.service.generator
+ua.code.intership.proft.it.soft.service.parser
+ua.code.intership.proft.it.soft.service.reader
+ua.code.intership.proft.it.soft.service.statistic
+ua.code.intership.proft.it.soft.service.util
+ua.code.intership.proft.it.soft.service.util.constant
+ua.code.intership.proft.it.soft.service.util.parser
+ua.code.intership.proft.it.soft.service.util.reflect
+ua.code.intership.proft.it.soft.ui
+ua.code.intership.proft.it.soft.ui.util
+ua.code.intership.proft.it.soft.ui.util.constant
+ua.code.intership.proft.it.soft.ui.util.random

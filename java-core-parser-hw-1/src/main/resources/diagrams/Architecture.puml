@@ -24,6 +24,8 @@ package service{
             + File parse(String pathToJsonFiles, String attribute);
         }
         class JsonToXmlParser{
+            - {static} JSON_FILE_EXTENSION;
+            - {static} DEFAULT_COUNT_THREADS_TO_PROCESSING_FILES;
             - FileCreator fileCreator;
             - StatisticsProcessor statisticsProcessor;
             - boolean isValidAttribute(String attribute);

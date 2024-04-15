@@ -11,9 +11,9 @@ import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.atomic.AtomicReference;
+import java.util.concurrent.atomic.AtomicReferenceArray;
 
-import static ua.code.intership.proft.it.soft.service.util.generator.FileGenerator.generateDirectory;
+import static ua.code.intership.proft.it.soft.service.util.FileProcessor.*;
 import static ua.code.intership.proft.it.soft.service.util.constant.JacksonConst.OBJECT_MAPPER;
 
 /**
@@ -37,20 +37,11 @@ public class JsonObjectMultipleFileGenerator<T> implements ObjectMultipleFileGen
      */
     @Override
     public void generate(String pathToJsonDirectory, List<List<T>> listObjectsList, int countThreads) {
-        Path directory = Path.of(pathToJsonDirectory);
-
-        if (!Files.exists(directory)) generateDirectory(directory);
-
-        if (listObjectsList == null || listObjectsList.isEmpty())
-            throw new IllegalArgumentException("The list of objects is empty!");
-
-        if (countThreads <= 0)
-            throw new IllegalArgumentException("Count threads must be greater than zero! " +
-                    "Please select right count threads to thread pool.");
+        validateInputParameter(pathToJsonDirectory, listObjectsList, countThreads);
 
         ExecutorService executor = Executors.newFixedThreadPool(countThreads);
         CountDownLatch latch = new CountDownLatch(listObjectsList.size());
-        AtomicReference<Throwable> exceptionRef = new AtomicReference<>();
+        AtomicReferenceArray<Throwable> exceptionRef = new AtomicReferenceArray<>(listObjectsList.size());
 
         for (int i = 0; i < listObjectsList.size(); i++) {
             final int outerIndex = i;
@@ -62,7 +53,7 @@ public class JsonObjectMultipleFileGenerator<T> implements ObjectMultipleFileGen
                     log.info("JSON data for file:{} was generated.", file.getName());
                 } catch (IOException e) {
                     log.error("Generating file:{} with .json format was not successful.", file.getName(), e);
-                    exceptionRef.set(e);
+                    exceptionRef.set(outerIndex, e);
                 } finally {
                     latch.countDown();
                 }
@@ -79,9 +70,37 @@ public class JsonObjectMultipleFileGenerator<T> implements ObjectMultipleFileGen
 
         executor.shutdown();
 
-        Throwable exception = exceptionRef.get();
-        if (exception != null) {
-            throw new FileGenerationException("Error generating files!");
+        for (int i = 0; i < exceptionRef.length(); i++) {
+            Throwable exception = exceptionRef.get(i);
+            if (exception != null) {
+                throw new FileGenerationException("Error generating files!", exception);
+            }
+        }
+    }
+
+    /**
+     * Validates the input parameters.
+     *
+     * @param pathToJsonDirectory the directory where the JSON files will be generated
+     * @param listObjectsList     a list containing lists of objects to generate JSON files for
+     * @param countThreads        the number of threads to use for parallel generation
+     * @throws IllegalArgumentException if the list of objects is null or empty,
+     *                                  or if countThreads is less than or equal to zero
+     */
+    private static <T> void validateInputParameter(String pathToJsonDirectory, List<List<T>> listObjectsList, int countThreads) {
+        Path directory = Path.of(pathToJsonDirectory);
+
+        if (!Files.exists(directory)) generateDirectory(directory);
+
+        if (listObjectsList == null || listObjectsList.isEmpty()) {
+            log.error("The list of objects is empty! Cannot proceed.");
+            throw new IllegalArgumentException("The list of objects is empty!");
+        }
+
+        if (countThreads <= 0) {
+            log.error("Invalid count of threads: {}. Must be greater than zero.", countThreads);
+            throw new IllegalArgumentException("Count threads must be greater than zero! " +
+                    "Please select right count threads to thread pool.");
         }
     }
 

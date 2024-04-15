@@ -1,5 +1,6 @@
 package ua.code.intership.proft.it.soft.service.statistic;
 
+import lombok.extern.log4j.Log4j2;
 import ua.code.intership.proft.it.soft.model.StatisticsInfo;
 import ua.code.intership.proft.it.soft.service.util.parser.StringParser;
 
@@ -20,6 +21,7 @@ import java.util.stream.Collectors;
  *
  * @see StatisticsProcessor
  */
+@Log4j2
 public abstract class AbstractStatisticsProcessor implements StatisticsProcessor {
     /**
      * The set to store statistics information.
@@ -94,6 +96,7 @@ public abstract class AbstractStatisticsProcessor implements StatisticsProcessor
                                                                                                        .equals(valueAttribute))
                                                                                    .findFirst();
             optionalStatisticsDto.ifPresent(StatisticsInfo::incrementNumberOfRepetitions);
+            log.info("Incremented number of repetitions for attribute: {}", valueAttribute);
             return;
         }
 
@@ -102,6 +105,7 @@ public abstract class AbstractStatisticsProcessor implements StatisticsProcessor
                                                                                .numberOfRepetitions(1)
                                                                                .build();
         STATISTICS_INFO_SET.add(statisticsInfo);
+        log.info("Added new statistic for attribute: {}", valueAttribute);
     }
 
     /**

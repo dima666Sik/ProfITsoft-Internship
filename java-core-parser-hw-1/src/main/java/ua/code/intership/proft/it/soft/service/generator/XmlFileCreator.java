@@ -56,7 +56,10 @@ public class XmlFileCreator implements FileCreator {
             statisticsProcessor.clearStatisticsSet();
 
             Document doc = createXmlDocument(statisticsInfoSetByNumberOfRepetitions);
-            return writeXmlToFile(doc, pathToXmlDirectory, attribute);
+            File xmlFile = writeXmlToFile(doc, pathToXmlDirectory, attribute);
+            log.info("XML file generated successfully: {}", xmlFile.getPath());
+
+            return xmlFile;
         } catch (Exception e) {
             log.error("Error generating XML file", e);
             throw new FileGenerationException("Error generating XML file", e);
