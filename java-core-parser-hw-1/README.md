@@ -42,7 +42,7 @@
    <br> If you want to do this, please use this command:
 
 ```md  
-git clone https://github.com/dima666Sik/ProfITsoft-Internship/tree/master/java-core-parser-hw-1.git
+git clone https://github.com/dima666Sik/ProfITsoft-Internship.git
 ```
 
 2. To run this project, you will need to install:
