@@ -27,7 +27,6 @@ import static ua.code.intership.proft.it.soft.service.util.constant.FileTestCons
 @ExtendWith(MockitoExtension.class)
 class XmlFileCreatorTest {
     private FileCreator fileCreator;
-    private List<File> fileList;
     @Mock
     private StatisticsProcessor statisticsProcessor;
 
@@ -43,9 +42,6 @@ class XmlFileCreatorTest {
         assertNotNull(PLANET_LISTS, "PLANET_LISTS should not be null!");
 
         assertEquals(files.length, PLANET_LISTS.size());
-
-        fileList = Arrays.stream(files)
-                         .toList();
     }
 
     @AfterEach

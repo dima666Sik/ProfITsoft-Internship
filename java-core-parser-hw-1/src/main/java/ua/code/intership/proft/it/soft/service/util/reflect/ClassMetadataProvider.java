@@ -1,5 +1,10 @@
 package ua.code.intership.proft.it.soft.service.util.reflect;
 
+import java.lang.invoke.MethodHandles;
+import java.lang.invoke.VarHandle;
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
+
 /**
  * A utility class for providing interact with metadata about classes and their fields.
  */

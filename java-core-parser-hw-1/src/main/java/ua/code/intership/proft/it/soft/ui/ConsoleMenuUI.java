@@ -11,18 +11,20 @@ import java.util.Scanner;
 import static ua.code.intership.proft.it.soft.ui.util.constant.PlanetGeneratorConst.PLANET_LISTS;
 import static ua.code.intership.proft.it.soft.ui.util.constant.ConsoleConst.*;
 import static ua.code.intership.proft.it.soft.ui.util.ConsolePrinter.*;
-import static ua.code.intership.proft.it.soft.ui.util.constant.FileConst.*;
+import static ua.code.intership.proft.it.soft.service.util.constant.FileConst.*;
 
 public class ConsoleMenuUI {
     private final ObjectMultipleFileGenerator<Planet> multipleFileGenerator = new JsonObjectMultipleFileGenerator<>();
     private final FileParser fileParser = new JsonToXmlParser();
+    private final Scanner scanner = new Scanner(System.in);
 
     private boolean menu() {
         printMessageWithNewLine(MAIN_MENU_APP);
         printMessageWithNewLine(MESSAGE_TO_CHOOSE_FUNCTION_FROM_THE_MENU);
         printMessageWithoutNewLine(YOUR_CHOICE);
-        Scanner scanChoice = new Scanner(System.in);
-        int choice = scanChoice.nextInt();
+        int choice = scanner.nextInt();
+        scanner.nextLine(); // need to read '\n' after reading wrote int symbol.
+
         switch (choice) {
             case 1 -> {
                 printMessageWithNewLine(CHOSE_MESSAGE + MESSAGE_TO_GENERATE_JSON_FILE);
@@ -33,23 +35,19 @@ public class ConsoleMenuUI {
                 printMessageWithNewLine(CHOSE_MESSAGE + MESSAGE_TO_GENERATE_STATISTICS_FILE);
                 printMessageWithNewLine(RECOMMENDED_TO_CHOSE_DATA);
 
-                Scanner scanner = new Scanner(System.in);
-
                 printMessageWithoutNewLine("Write path to json files: ");
                 String pathToJsonFiles = scanner.nextLine();
-
-                printMessageWithoutNewLine("Write path to will be generated xml file: ");
-                String pathToXmlFile = scanner.nextLine();
 
                 printMessageWithoutNewLine("Choose attribute to generate statistics: ");
                 String attribute = scanner.nextLine();
 
-                fileParser.parse(pathToJsonFiles, pathToXmlFile, attribute);
+                fileParser.parse(pathToJsonFiles, attribute);
                 return true;
+
             }
             case 3 -> {
-                printMessageWithNewLine(MESSAGE_TO_EXIT);
-                scanChoice.close();
+                printMessageWithNewLine(CHOSE_MESSAGE + MESSAGE_TO_EXIT);
+                scanner.close();
                 return false;
             }
             default -> {

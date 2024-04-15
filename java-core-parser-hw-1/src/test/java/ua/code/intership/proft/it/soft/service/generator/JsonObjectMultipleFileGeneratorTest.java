@@ -5,17 +5,15 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ua.code.intership.proft.it.soft.model.Planet;
-import ua.code.intership.proft.it.soft.service.exception.FileGenerationException;
 import ua.code.intership.proft.it.soft.service.util.TimeChecker;
 
 import java.io.File;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static ua.code.intership.proft.it.soft.service.util.FileProcessor.clearFilesByDirectory;
-import static ua.code.intership.proft.it.soft.ui.util.constant.PlanetGeneratorConst.PLANET_LISTS;
+import static ua.code.intership.proft.it.soft.service.util.constant.FileTestConst.PATH_TO_TEST_JSON_FILE_LIST;
 import static ua.code.intership.proft.it.soft.service.util.constant.ParserConst.DEFAULT_COUNT_THREADS_TO_PROCESSING_FILES;
-import static ua.code.intership.proft.it.soft.service.util.constant.FileTestConst.*;
+import static ua.code.intership.proft.it.soft.ui.util.constant.PlanetGeneratorConst.PLANET_LISTS;
 
 class JsonObjectMultipleFileGeneratorTest {
     private ObjectMultipleFileGenerator<Planet> objectMultipleFileGenerator;

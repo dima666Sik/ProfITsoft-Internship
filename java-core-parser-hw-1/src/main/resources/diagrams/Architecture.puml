@@ -1,0 +1,90 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+package service{
+    package generator{
+        interface FileCreator {
+            + File generate(String pathToDirectory, String attribute);
+        }
+        interface ObjectMultipleFileGenerator<T> {
+            + void generate(String pathToDirectory, List<List<T>> listObjectsList, int countThreads);
+        }
+        class JsonObjectMultipleFileGenerator<T>{
+            + void generate(String pathToJsonDirectory, List<List<T>> listObjectsList, int countThreads);
+        }
+        class XmlFileCreator{
+            - StatisticsProcessor statisticsProcessor;
+            - Document createXmlDocument(Set<StatisticsInfo<? extends Comparable<?>>> statisticsInfoSet);
+            - private File writeXmlToFile(Document doc, String pathToXmlDirectory, String attribute);
+            + public File generate(String pathToXmlDirectory, String attribute);
+        }
+    }
+    package parser{
+        interface FileParser {
+            + File parse(String pathToJsonFiles, String attribute);
+        }
+        class JsonToXmlParser{
+            - FileCreator fileCreator;
+            - StatisticsProcessor statisticsProcessor;
+            - boolean isValidAttribute(String attribute);
+            + File parse(String pathToJsonFiles, String attribute);
+        }
+    }
+    package reader{
+        interface FileReader{
+            + <T> void readFile(File file, Class<T> clazzObjInJson, Consumer<T> consumer);
+        }
+        class JsonFileReader{
+            - JsonFactory jsonFactory;
+            + <T> void readFile(File file, Class<T> clazzObjInJson, Consumer<T> consumer);
+        }
+    }
+    package statistic{
+        interface StatisticsProcessor{
+            + void collectStatistics(File file, String attribute);
+            + Set<StatisticsInfo<? extends Comparable<?>>> getStatisticsSet();
+            + Set<StatisticsInfo<? extends Comparable<?>>> getStatisticsSortedSet(Comparator<StatisticsInfo<? extends Comparable<?>>> comparator);
+            + void clearStatisticsSet();
+        }
+        abstract class AbstractStatisticsProcessor{
+            {static} Set<StatisticsInfo<? extends Comparable<?>>> STATISTICS_INFO_SET;
+            # <T extends Comparable<T>> void processStatistic(T valueAttribute);
+            - <T extends Comparable<T>> boolean isExistInSetStatistics(T attribute);
+            - Set<String> getSetStringAttributes(String strAttribute);
+            - <T extends Comparable<T>> boolean isStringAttribute(T valueAttribute);
+            - <T extends Comparable<T>> void addStatistic(T valueAttribute);
+            + Set<StatisticsInfo<? extends Comparable<?>>> getStatisticsSet();
+            + Set<StatisticsInfo<? extends Comparable<?>>> getStatisticsSortedSet(Comparator<StatisticsInfo<? extends Comparable<?>>> comparator);
+            + void clearStatisticsSet();
+
+        }
+        class PlanetStatisticsProcessor{
+            - {static} StatisticsProcessor instance;
+            - FileReader fileReader;
+            + {static} StatisticsProcessor getInstance();
+            + void collectStatistics(File file, String attribute);
+        }
+    }
+
+FileCreator <|-- XmlFileCreator
+ObjectMultipleFileGenerator <|-- JsonObjectMultipleFileGenerator
+
+FileParser <|-- JsonToXmlParser
+
+FileReader <|-- JsonFileReader
+
+StatisticsProcessor <|-- AbstractStatisticsProcessor
+AbstractStatisticsProcessor <|-- PlanetStatisticsProcessor
+
+
+XmlFileCreator o-- StatisticsProcessor
+
+JsonToXmlParser o-- FileCreator
+JsonToXmlParser o-- StatisticsProcessor
+
+PlanetStatisticsProcessor o-- StatisticsProcessor
+PlanetStatisticsProcessor o-- FileReader
+
+}
+
+@enduml

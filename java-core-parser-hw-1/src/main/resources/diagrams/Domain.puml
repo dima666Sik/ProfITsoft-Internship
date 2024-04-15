@@ -1,59 +1,65 @@
 @startuml
 'https://plantuml.com/class-diagram
 
-class Planet{
-    - String name;
-    - Mass mass;
-    - Diameter diameter;
-    - boolean hasRings;
-    - boolean hasMoons;
-    --getters & setters--
-}
+package model{
 
-class PlanetarySystem{
-    - long id;
-    - String name;
-    --getters & setters--
-}
+    class Planet{
+        - String name;
+        - Mass mass;
+        - Diameter diameter;
+        - boolean hasRings;
+        - boolean hasMoons;
+        --getters & setters--
+    }
 
-class Diameter{
-    - SIUnitLength unit;
-    --getters & setters--
-}
+    class PlanetarySystem{
+        - long id;
+        - String name;
+        --getters & setters--
+    }
 
-class Mass{
-    - SIUnitMass unit;
-    --getters & setters--
-}
+    class StatisticsInfo<T extends Comparable<T>>{
+        - T attribute;
+        - int numberOfRepetitions;
+        --getters & setters--
+        + void incrementNumberOfRepetitions();
+    }
 
-enum SIUnitLength {
-    METER,
-    KILOMETER,
-    CENTIMETER,
-}
+    package si.data{
+        abstract class SIBasicPhysicalQuantity{
+         # double value;
+        }
+        class Diameter{
+            - SIUnitLength unit;
+            --getters & setters--
+        }
 
-enum SIUnitMass {
-    KILOGRAM,
-    GRAM,
-}
+        class Mass{
+            - SIUnitMass unit;
+            --getters & setters--
+        }
 
-abstract class SIBasicPhysicalQuantity{
- # double value;
-}
+        enum SIUnitLength {
+            METER,
+            KILOMETER,
+            CENTIMETER,
+        }
 
-class StatisticsInfoDto{
-    - T attribute;
-    - volatile int numberOfRepetitions;
-    + void incrementNumberOfRepetitions();
+        enum SIUnitMass {
+            KILOGRAM,
+            GRAM,
+        }
+
+    }
 }
 
 SIBasicPhysicalQuantity <|-- Diameter
 SIBasicPhysicalQuantity <|-- Mass
 
-PlanetarySystem *-- Planet
-
 Planet *-- Diameter
 Planet *-- Mass
+Planet *-- PlanetarySystem
+
 
 Diameter *-- SIUnitLength
 Mass *-- SIUnitMass

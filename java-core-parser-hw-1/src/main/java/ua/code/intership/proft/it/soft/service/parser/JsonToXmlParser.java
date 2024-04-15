@@ -17,13 +17,14 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicReference;
 
+import static ua.code.intership.proft.it.soft.service.util.constant.FileConst.*;
 import static ua.code.intership.proft.it.soft.service.util.generator.FileGenerator.generateDirectory;
 
 /**
  * {@link JsonToXmlParser} is a class that implements the {@link FileParser} interface
  * and provides functionality to parse JSON files into XML format.
  * It processes JSON files from a specified directory,
- * converts them into XML files, and saves them to a designated location.
+ * converts them into XML file, and saves it to a default location.
  * <p> This class is Facade has simple methods that delegate hard work
  * to other services but to the client enough to start methods Facade class
  *
@@ -31,7 +32,7 @@ import static ua.code.intership.proft.it.soft.service.util.generator.FileGenerat
  */
 @Log4j2
 public class JsonToXmlParser implements FileParser {
-    private static final int DEFAULT_COUNT_THREADS_TO_PROCESSING_FILES = 10;
+    public static final int DEFAULT_COUNT_THREADS_TO_PROCESSING_FILES = 10;
     private final FileCreator fileCreator = new XmlFileCreator();
     private final StatisticsProcessor statisticsProcessor = PlanetStatisticsProcessor.getInstance();
 
@@ -41,7 +42,6 @@ public class JsonToXmlParser implements FileParser {
      * specified statistic XML file by attribute.
      *
      * @param pathToJsonFiles the path to the directory containing JSON files to parse
-     * @param pathToXmlFile   the path to the XML file where the parsed data will be saved
      * @param attribute       the attribute that influence to generate statistic XML file
      * @return the XML file containing the parsed data
      * @throws IllegalArgumentException if the path to JSON files is null or empty, or if the attribute is invalid
@@ -49,7 +49,7 @@ public class JsonToXmlParser implements FileParser {
      * @throws FileProcessingException  if an error occurs during file processing
      */
     @Override
-    public File parse(String pathToJsonFiles, String pathToXmlFile, String attribute) {
+    public File parse(String pathToJsonFiles, String attribute) {
         if (pathToJsonFiles == null || pathToJsonFiles.isEmpty())
             throw new IllegalArgumentException("Invalid path to files: " + pathToJsonFiles + ".\nPlease fill the path to files.");
 
@@ -68,7 +68,7 @@ public class JsonToXmlParser implements FileParser {
             throw new IllegalArgumentException("Files absent or null! " +
                     "Choose another directory with files, or create file into it.");
 
-        Path directoryToXmlFiles = Path.of(pathToXmlFile);
+        Path directoryToXmlFiles = Path.of(PATH_TO_XML_FILE_LIST);
 
         if (!Files.exists(directoryToXmlFiles)) generateDirectory(directoryToXmlFiles);
 
@@ -107,7 +107,7 @@ public class JsonToXmlParser implements FileParser {
             throw new FileProcessingException("Error processing files!");
         }
 
-        return fileCreator.generate(pathToXmlFile, attribute);
+        return fileCreator.generate(PATH_TO_XML_FILE_LIST, attribute);
     }
 
     /**

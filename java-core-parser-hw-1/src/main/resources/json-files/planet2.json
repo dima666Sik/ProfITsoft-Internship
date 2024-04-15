@@ -1,35 +1,92 @@
 [
   {
     "id": 1,
-    "name": "Planet150",
+    "name": "Planet860",
     "mass": {
-      "value": 8.471594504242326,
+      "value": 9.476807632777781,
       "unit": "KILOGRAM"
     },
     "diameter": {
-      "value": 9866.0,
+      "value": 4899.0,
       "unit": "KILOMETER"
     },
-    "hasRings": true,
+    "hasRings": false,
     "hasMoons": false,
-    "atmosphericComposition": "Oxygen, Nitrogen, Carbon dioxide",
+    "atmosphericComposition": "Beryllium",
     "planetarySystem": {
-      "id": 0,
-      "name": "Planetary System X0"
+      "id": 1,
+      "name": "Planetary System X1"
     }
   },
   {
     "id": 2,
-    "name": "Planet789",
+    "name": "Planet873",
     "mass": {
-      "value": 4.920517639462327,
+      "value": 3.4155131388666393,
       "unit": "KILOGRAM"
     },
     "diameter": {
-      "value": 4885.0,
+      "value": 6712.0,
+      "unit": "KILOMETER"
+    },
+    "hasRings": true,
+    "hasMoons": true,
+    "atmosphericComposition": "Hydrogen, Helium",
+    "planetarySystem": {
+      "id": 1,
+      "name": "Planetary System X1"
+    }
+  },
+  {
+    "id": 3,
+    "name": "Planet176",
+    "mass": {
+      "value": 9.752639037424705,
+      "unit": "KILOGRAM"
+    },
+    "diameter": {
+      "value": 7984.0,
       "unit": "KILOMETER"
     },
     "hasRings": false,
+    "hasMoons": true,
+    "atmosphericComposition": "Beryllium",
+    "planetarySystem": {
+      "id": 1,
+      "name": "Planetary System X1"
+    }
+  },
+  {
+    "id": 4,
+    "name": "Planet278",
+    "mass": {
+      "value": 8.867111678984525,
+      "unit": "KILOGRAM"
+    },
+    "diameter": {
+      "value": 8170.0,
+      "unit": "KILOMETER"
+    },
+    "hasRings": false,
+    "hasMoons": true,
+    "atmosphericComposition": "Magnesium",
+    "planetarySystem": {
+      "id": 1,
+      "name": "Planetary System X1"
+    }
+  },
+  {
+    "id": 5,
+    "name": "Planet804",
+    "mass": {
+      "value": 9.266874370584793,
+      "unit": "KILOGRAM"
+    },
+    "diameter": {
+      "value": 8866.0,
+      "unit": "KILOMETER"
+    },
+    "hasRings": true,
     "hasMoons": false,
     "atmosphericComposition": "Hydrogen, Helium",
     "planetarySystem": {
@@ -38,22 +95,22 @@
     }
   },
   {
-    "id": 3,
-    "name": "Planet276",
+    "id": 6,
+    "name": "Planet940",
     "mass": {
-      "value": 2.852781657314105,
+      "value": 7.5701383613829485,
       "unit": "KILOGRAM"
     },
     "diameter": {
-      "value": 8322.0,
+      "value": 7628.0,
       "unit": "KILOMETER"
     },
     "hasRings": false,
     "hasMoons": true,
-    "atmosphericComposition": "Magnesium",
+    "atmosphericComposition": "Oxygen, Nitrogen",
     "planetarySystem": {
-      "id": 2,
-      "name": "Planetary System X2"
+      "id": 0,
+      "name": "Planetary System X0"
     }
   }
 ]

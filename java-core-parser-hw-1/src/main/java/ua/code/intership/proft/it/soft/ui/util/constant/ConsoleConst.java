@@ -1,8 +1,8 @@
 package ua.code.intership.proft.it.soft.ui.util.constant;
 
 import static ua.code.intership.proft.it.soft.model.attribute.PlanetAttribute.*;
-import static ua.code.intership.proft.it.soft.ui.util.constant.FileConst.PATH_TO_JSON_FILE_LIST;
-import static ua.code.intership.proft.it.soft.ui.util.constant.FileConst.PATH_TO_XML_FILE_LIST;
+import static ua.code.intership.proft.it.soft.service.util.constant.FileConst.PATH_TO_JSON_FILE_LIST;
+import static ua.code.intership.proft.it.soft.service.util.constant.FileConst.PATH_TO_XML_FILE_LIST;
 
 public final class ConsoleConst {
     private ConsoleConst() {
@@ -28,8 +28,8 @@ public final class ConsoleConst {
                 ==============================================
                 Recommendations (you can copy and paste them):
                     2.1 The path to Json files: %s
-                    2.2 The path to directory to Xml store file: %s
-                    2.3 Attributes that you can choose to generate statistics:
+                    2.2 The path to directory to Xml store file (default): %s
+                    2.3 Attributes that you can choose to generate statistics (2.3.5 recommended):
                         2.3.1 %s
                         2.3.2 %s
                         2.3.3 %s
