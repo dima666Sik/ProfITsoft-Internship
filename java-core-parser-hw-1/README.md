@@ -249,7 +249,7 @@ Also, if you want you can generate statistics using another attribute, for examp
 3. Test parsing with **four** threads to processing multiple JSON files take 0.184 seconds
 4. Test parsing with **eighth** threads to processing multiple JSON files take 0.189 seconds
 
-For assume time parsing files I was created `TimeChecker`.
+For assume time parsing files, I was created the `ua.code.intership.proft.it.soft.service.util.TimeChecker`.
 
 ### ***Explain results***
 
@@ -257,7 +257,10 @@ The number of JSON files in the directory is three.
 <br>So if we have less than three threads to process files, the program will process files with free threads and if
 there are not enough app will wait for free threads to process other files that remain, it will take more time.
 <br>Otherwise, the threads will exist but not be used, so time work in that case won't be shorter.
-<br>However, the efficiency will also depend on the number of available processor cores and the volume of processed files.
+<br>The better way is when several threads == number of files, so each file is processed in a separate thread and doesn't wait
+for free threads, or we haven't taken memory and don't use useless threads.
+<br>However, the efficiency will also depend on the number of available processor cores and the volume of processed
+files.
 
 ## Author Info
 
