@@ -13,14 +13,14 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Arrays;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicReferenceArray;
 
-import static ua.code.intership.proft.it.soft.service.util.constant.FileConst.*;
-import static ua.code.intership.proft.it.soft.service.util.FileProcessor.*;
+import static ua.code.intership.proft.it.soft.service.util.FileProcessor.generateDirectory;
+import static ua.code.intership.proft.it.soft.service.util.FileProcessor.getFiles;
+import static ua.code.intership.proft.it.soft.service.util.constant.FileConst.PATH_TO_XML_FILE_LIST;
 
 /**
  * {@link JsonToXmlParser} is a class that implements the {@link FileParser} interface

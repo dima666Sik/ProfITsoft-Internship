@@ -15,12 +15,12 @@ public final class StringParser {
      * Parses a separated list using these symbols [<b> , # | ; </b>] into a {@code Set} of strings.
      *
      * @param inputStr the input string
-     * @param regEx the regular expression to split the input string into a set of strings
+     * @param regEx    the regular expression to split the input string into a set of strings
      * @return a {@code Set} of strings
      */
     public static Set<String> parseToStringSet(String inputStr, String regEx) {
         return Arrays.stream(inputStr.split(regEx))
-               .map(String::trim)
-               .collect(Collectors.toSet());
+                     .map(String::trim)
+                     .collect(Collectors.toSet());
     }
 }

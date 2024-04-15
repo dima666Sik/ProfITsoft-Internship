@@ -14,6 +14,9 @@ import java.util.concurrent.Executors;
 
 @Log4j2
 public final class FileProcessor {
+    private FileProcessor() {
+    }
+
     /**
      * Clears all files in the specified directory.
      *
@@ -48,6 +51,7 @@ public final class FileProcessor {
             executor.shutdown();
         }
     }
+
     /**
      * Generates a directory at the specified path.
      *
@@ -68,12 +72,12 @@ public final class FileProcessor {
      * Retrieves the JSON files from the specified directory and extension
      *
      * @param pathToJsonFiles the path to the directory containing JSON files
-     * @param extension the extension of the files that we want to retrieve
+     * @param extension       the extension of the files that we want to retrieve
      * @return an array of File objects representing the JSON files
      * @throws IllegalArgumentException if the specified path is not a directory, if the directory is empty,
      *                                  or if there are no JSON files in the directory
      */
-    public static File[] getFiles(String pathToJsonFiles, String extension){
+    public static File[] getFiles(String pathToJsonFiles, String extension) {
         File directoryToJsonFiles = new File(pathToJsonFiles);
 
         if (!directoryToJsonFiles.isDirectory())

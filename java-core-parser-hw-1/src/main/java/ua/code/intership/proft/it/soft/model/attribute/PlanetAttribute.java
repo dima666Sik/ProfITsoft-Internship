@@ -1,6 +1,7 @@
 package ua.code.intership.proft.it.soft.model.attribute;
 
 import java.util.Set;
+
 /**
  * This class contains the core attributes of a planet.
  */

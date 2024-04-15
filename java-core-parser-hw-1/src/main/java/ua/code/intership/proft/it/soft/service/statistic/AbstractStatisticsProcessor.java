@@ -10,6 +10,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
+
 /**
  * AbstractStatisticsProcessor is an abstract class that provides common functionality for processing statistics.
  * It implements the StatisticsProcessor interface and provides methods to collect and manage statistics information.
@@ -42,7 +43,7 @@ public abstract class AbstractStatisticsProcessor implements StatisticsProcessor
      *
      * @param valueAttribute the attribute value to process
      */
-    protected  <T extends Comparable<T>> void processStatistic(T valueAttribute) {
+    protected <T extends Comparable<T>> void processStatistic(T valueAttribute) {
         if (isStringAttribute(valueAttribute)) {
             Set<String> setStringAttributes = getSetStringAttributes((String) valueAttribute);
             setStringAttributes.forEach(this::addStatistic);
@@ -60,7 +61,7 @@ public abstract class AbstractStatisticsProcessor implements StatisticsProcessor
     private <T extends Comparable<T>> boolean isExistInSetStatistics(T attribute) {
         return STATISTICS_INFO_SET.stream()
                                   .anyMatch(el -> el.getAttribute()
-                                                        .equals(attribute));
+                                                    .equals(attribute));
     }
 
     /**
@@ -92,9 +93,9 @@ public abstract class AbstractStatisticsProcessor implements StatisticsProcessor
 
         if (isExistInSetStatistics(valueAttribute)) {
             Optional<StatisticsInfo<? extends Comparable<?>>> optionalStatisticsDto = STATISTICS_INFO_SET.stream()
-                                                                                   .filter(el -> el.getAttribute()
-                                                                                                       .equals(valueAttribute))
-                                                                                   .findFirst();
+                                                                                                         .filter(el -> el.getAttribute()
+                                                                                                                         .equals(valueAttribute))
+                                                                                                         .findFirst();
             optionalStatisticsDto.ifPresent(StatisticsInfo::incrementNumberOfRepetitions);
             log.info("Incremented number of repetitions for attribute: {}", valueAttribute);
             return;
@@ -133,11 +134,12 @@ public abstract class AbstractStatisticsProcessor implements StatisticsProcessor
                                  .sorted(comparator)
                                  .collect(Collectors.toCollection(LinkedHashSet::new));
     }
+
     /**
      * Clears the set of collected statistics.
      */
     @Override
-    public void clearStatisticsSet(){
+    public void clearStatisticsSet() {
         STATISTICS_INFO_SET.clear();
     }
 }

@@ -37,6 +37,7 @@ public interface StatisticsProcessor {
      * @throws IllegalAccessException if the set cannot be accessed
      */
     Set<StatisticsInfo<? extends Comparable<?>>> getStatisticsSortedSet(Comparator<StatisticsInfo<? extends Comparable<?>>> comparator) throws IllegalAccessException;
+
     /**
      * Clears the set of collected statistics.
      */

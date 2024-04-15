@@ -1,6 +1,7 @@
 package ua.code.intership.proft.it.soft.service.parser;
 
 import java.io.File;
+
 /**
  * A functional interface that defines the contract to parse a file.
  */

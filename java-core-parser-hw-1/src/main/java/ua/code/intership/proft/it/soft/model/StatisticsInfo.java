@@ -1,6 +1,8 @@
 package ua.code.intership.proft.it.soft.model;
 
-import lombok.*;
+import lombok.Builder;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
 @Builder
