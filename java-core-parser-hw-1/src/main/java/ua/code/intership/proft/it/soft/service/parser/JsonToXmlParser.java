@@ -32,7 +32,7 @@ import static ua.code.intership.proft.it.soft.service.util.generator.FileGenerat
  */
 @Log4j2
 public class JsonToXmlParser implements FileParser {
-    public static final int DEFAULT_COUNT_THREADS_TO_PROCESSING_FILES = 10;
+    public static final int DEFAULT_COUNT_THREADS_TO_PROCESSING_FILES = 8;
     private final FileCreator fileCreator = new XmlFileCreator();
     private final StatisticsProcessor statisticsProcessor = PlanetStatisticsProcessor.getInstance();
 

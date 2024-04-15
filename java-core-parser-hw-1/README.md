@@ -124,11 +124,13 @@ In this description you will see info about four models in `service` (described 
 ### Patterns
 
 Patterns were used into this project:
+
 - Singleton pattern
 - Facade pattern
 - Builder pattern
 
 ### SOLID
+
 Into this project I tried to adhere to all of these principles.
 
 ## Input and output examples files
@@ -232,7 +234,7 @@ Also, if you want you can generate statistics using another attribute, for examp
         <value>6</value>
         <count>3</count>
     </item>
-    ...
+    <!--... skip tags ...-->
     <item>
         <value>12</value>
         <count>1</count>
@@ -242,13 +244,20 @@ Also, if you want you can generate statistics using another attribute, for examp
 
 ## Results of testing parsing with different count of threads
 
+1. Test parsing with **one** thread to processing multiple JSON files take 0.250 seconds
+2. Test parsing with **two** threads to processing multiple JSON files take 0.201 seconds
+3. Test parsing with **four** threads to processing multiple JSON files take 0.184 seconds
+4. Test parsing with **eighth** threads to processing multiple JSON files take 0.189 seconds
 
-### Testing with junit5 all features
+For assume time parsing files I was created `TimeChecker`.
 
-- The system is tested by using `JUnit 5` to ensure in functionality and reliability.
+### ***Explain results***
 
-- The testing result:<br>
-  ![Testing](Starter/src/main/resources/data_for_readme/imgs/test_coverage.png)
+The number of JSON files in the directory is three.
+<br>So if we have less than three threads to process files, the program will process files with free threads and if
+there are not enough app will wait for free threads to process other files that remain, it will take more time.
+<br>Otherwise, the threads will exist but not be used, so time work in that case won't be shorter.
+<br>However, the efficiency will also depend on the number of available processor cores and the volume of processed files.
 
 ## Author Info
 
