@@ -1,6 +1,6 @@
 # Java Core Parser
 
-![Project Video](src/main/resources/github-data/...)
+![Project Video](src/main/resources/github-data/app-prof-video.gif)
 > ## The short description of the project:
 > - A console script program that <b>parses the list of JSON files</b> of
     > the main entity and <b>generates statistics (the total number) in terms of one of its attributes</b>.
@@ -47,8 +47,8 @@ git clone https://github.com/dima666Sik/ProfITsoft-Internship/tree/master/java-c
 
 2. To run this project, you will need to install:
     - JDK 17 or higher;
-3. Then you can check performance program by using junit tests;
-4. Also, you can start working with app using `Main` class, start main method;
+3. Then you can check performance program **by using junit tests**;
+4. Also, you can start working with app **using `Main` class**, start main method;
    If you decide to start an app using `Main` class, you should use the console to write commands by using them u will
    be able to use the features' app;
 5. The JSON file(s) will be automatically using `first case` when you start application and chose first case. <br>
