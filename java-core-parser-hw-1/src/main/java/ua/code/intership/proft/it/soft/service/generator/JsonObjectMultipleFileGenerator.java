@@ -87,7 +87,7 @@ public class JsonObjectMultipleFileGenerator<T> implements ObjectMultipleFileGen
      * @throws IllegalArgumentException if the list of objects is null or empty,
      *                                  or if countThreads is less than or equal to zero
      */
-    private static <T> void validateInputParameter(String pathToJsonDirectory, List<List<T>> listObjectsList, int countThreads) {
+    private void validateInputParameter(String pathToJsonDirectory, List<List<T>> listObjectsList, int countThreads) {
         Path directory = Path.of(pathToJsonDirectory);
 
         if (!Files.exists(directory)) generateDirectory(directory);

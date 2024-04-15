@@ -11,6 +11,7 @@ package service{
         }
         class JsonObjectMultipleFileGenerator<T>{
             + void generate(String pathToJsonDirectory, List<List<T>> listObjectsList, int countThreads);
+            - void validateInputParameter(String pathToJsonDirectory, List<List<T>> listObjectsList, int countThreads);
         }
         class XmlFileCreator{
             - StatisticsProcessor statisticsProcessor;
@@ -29,6 +30,8 @@ package service{
             - FileCreator fileCreator;
             - StatisticsProcessor statisticsProcessor;
             - boolean isValidAttribute(String attribute);
+            - void validateInputParameters(String pathToJsonFiles, String attribute);
+            - void processFilesByThreads(String attribute, File[] jsonFiles);
             + File parse(String pathToJsonFiles, String attribute);
         }
     }
