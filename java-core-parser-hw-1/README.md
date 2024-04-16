@@ -3,13 +3,13 @@
 ![Project Video](src/main/resources/github-data/app-prof-video.gif)
 > ## The short description of the project:
 > - A console script program that <b>parses the list of JSON files</b> of
-    > the main entity and <b>generates statistics (the total number) in terms of one of its attributes</b>.
+> the main entity and <b>generates statistics (the total number) in terms of one of its attributes</b>.
 > - As launch parameters, it receives the path to the folder where the JSON files
-    > are stored (there may be several of them there) and the name of the attribute on which to generate statistics.
+> are stored (there may be several of them there) and the name of the attribute on which to generate statistics.
 > - The program must <b>support work with several attributes</b>, and the user will specify one of them.
 > - One of the attributes must be text and have several values (comma categories, hash tags, etc.).
 > - As a result of the work, the program creates an XML file with statistics sorted by number
-    > from the largest to the smallest.
+> from the largest to the smallest.
 > - The name of the result file will be `statistics_by_{attribute}.xml`.
 
 ---
@@ -242,7 +242,7 @@ Also, if you want you can generate statistics using another attribute, for examp
 </statistics>
 ```
 
-## Results of testing parsing with different count of threads
+## Results of testing parsing with different count of threads (processing three files)
 
 1. Test parsing with **one** thread to processing multiple JSON files take 0.250 seconds
 2. Test parsing with **two** threads to processing multiple JSON files take 0.201 seconds
