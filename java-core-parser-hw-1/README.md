@@ -242,12 +242,26 @@ Also, if you want you can generate statistics using another attribute, for examp
 </statistics>
 ```
 
-## Results of testing parsing with different count of threads (processing three files)
+## Results of testing parsing with different count of threads
+### Processing three JSON files (each file was filled by max 12 and min 3 objects)
 
-1. Test parsing with **one** thread to processing multiple JSON files take 0.250 seconds
-2. Test parsing with **two** threads to processing multiple JSON files take 0.201 seconds
-3. Test parsing with **four** threads to processing multiple JSON files take 0.184 seconds
-4. Test parsing with **eighth** threads to processing multiple JSON files take 0.189 seconds
+   | Count threads | Time processing<br/>(seconds) |
+   |---------------|-------------------------------|
+   | one           | 0.250                         |
+   | two           | 0.201                         |
+   | three         | 0.184                         |
+   | four          | 0.189                         |
+
+
+### Processing twelve JSON files (each file was filled by max 10000 and min 8000 objects)
+| Count threads | Time processing<br/>(seconds) |
+|---------------|-------------------------------|
+| one           | 16.353                        |
+| five          | 11.106                        |
+| ten           | 12.265                        |
+| twelve        | 11.945                        |
+| fifty         | 12.264                        |
+| one hundred   | 12.326                        |
 
 For assume time parsing files, I was created the `ua.code.intership.proft.it.soft.service.util.TimeChecker`.
 
