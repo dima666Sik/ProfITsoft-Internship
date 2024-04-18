@@ -10,9 +10,9 @@ public interface FileParser {
     /**
      * Parses the specified file and returns the parsed file.
      *
-     * @param pathToJsonFiles the path to the directory containing the JSON files
-     * @param attribute       the name of the attribute to be extracted from the XML file
+     * @param pathToFiles the path to the directory containing the files
+     * @param attribute   the name of the attribute to be extracted from the XML file
      * @return the parsed file
      */
-    File parse(String pathToJsonFiles, String attribute);
+    File parse(String pathToFiles, String attribute);
 }
