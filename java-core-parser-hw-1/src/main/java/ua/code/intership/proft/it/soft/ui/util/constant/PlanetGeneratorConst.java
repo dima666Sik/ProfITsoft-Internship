@@ -17,19 +17,11 @@ public final class PlanetGeneratorConst {
     private PlanetGeneratorConst() {
     }
     public static final List<List<Planet>> PLANET_LISTS = List.of(
-            getPlanets(generateRandomize(8000,10000)),
-            getPlanets(generateRandomize(8000,10000)),
-            getPlanets(generateRandomize(8000,10000)),
-            getPlanets(generateRandomize(8000,10000)),
-            getPlanets(generateRandomize(8000,10000)),
-            getPlanets(generateRandomize(8000,10000)),
-            getPlanets(generateRandomize(8000,10000)),
-            getPlanets(generateRandomize(8000,10000)),
-            getPlanets(generateRandomize(8000,10000)),
-            getPlanets(generateRandomize(8000,10000)),
-
-            getPlanets(generateRandomize(8000,10000)),
-            getPlanets(generateRandomize(8000,10000))
+            getPlanets(generateRandomize(1000,4000)),
+            getPlanets(generateRandomize(1000,3500)),
+            getPlanets(generateRandomize(1000,2400)),
+            getPlanets(generateRandomize(1000,2500)),
+            getPlanets(generateRandomize(1000,3000))
 
     );
 
