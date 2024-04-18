@@ -51,7 +51,7 @@ git clone https://github.com/dima666Sik/ProfITsoft-Internship.git
 4. Also, you can start working with app **using `Main` class**, start main method;
    If you decide to start an app using `Main` class, you should use the console to write commands by using them u will
    be able to use the features' app;
-5. The JSON file(s) will be automatically using `first case` when you start application and chose first case. <br>
+5. The JSON file(s) will be automatically generated using `first case` when you start application and chose first case. <br>
    The path to the JSON file(s) is: `src/main/resources/json-files`;
 6. The result working `second case` app to parse the JSON file(s) you can see in the `src/main/resources/xml-files`
    directory.
