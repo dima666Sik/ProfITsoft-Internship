@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: spring-space-info-hw-2
+
+  datasource:
+    url: jdbc:postgresql://localhost:5443/space_db
+    username: dimasik666
+    password: password
+
+  jpa:
+    show-sql: true
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: validate
+
+  liquibase:
+    enabled: true
+
+
+server:
+  port: 8080
+
+

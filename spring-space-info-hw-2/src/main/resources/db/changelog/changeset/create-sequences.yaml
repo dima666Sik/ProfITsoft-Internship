@@ -1,0 +1,17 @@
+databaseChangeLog:
+  - changeSet:
+      id: default-sequences-postgres-db
+      author: Dima Kohol
+      changes:
+        - createSequence:
+            sequenceName: planetary_system_id_sequence
+            schemaName: public
+        - createSequence:
+            sequenceName: mass_id_sequence
+            schemaName: public
+        - createSequence:
+            sequenceName: diameter_id_sequence
+            schemaName: public
+        - createSequence:
+            sequenceName: planet_id_sequence
+            schemaName: public

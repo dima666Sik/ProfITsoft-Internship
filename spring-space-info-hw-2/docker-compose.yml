@@ -1,0 +1,12 @@
+services:
+  postgres:
+    container_name: postgres
+    image: postgres
+    environment:
+      POSTGRES_USER: dimasik666
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: space_db
+      PGDATA: /data/postgres
+    ports:
+      - "5443:5432"
+    restart: unless-stopped
