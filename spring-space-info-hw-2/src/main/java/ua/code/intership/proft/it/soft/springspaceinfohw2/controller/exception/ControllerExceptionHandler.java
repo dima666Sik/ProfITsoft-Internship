@@ -23,13 +23,13 @@ public class ControllerExceptionHandler {
                               .build();
     }
 
-//    @ExceptionHandler({FileUploadException.class, FileGenerationException.class, ReflectExtractDataException.class, Exception.class})
-//    @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
-//    public ErrorMessageDto resourceNotFoundException(Exception ex) {
-//        return ErrorMessageDto.builder()
-//                              .statusCode(HttpStatus.INTERNAL_SERVER_ERROR.value())
-//                              .timestamp(new Date())
-//                              .message(ex.getMessage())
-//                              .build();
-//    }
+    @ExceptionHandler({FileUploadException.class, FileGenerationException.class, ReflectExtractDataException.class, Exception.class})
+    @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
+    public ErrorMessageDto resourceNotFoundException(Exception ex) {
+        return ErrorMessageDto.builder()
+                              .statusCode(HttpStatus.INTERNAL_SERVER_ERROR.value())
+                              .timestamp(new Date())
+                              .message(ex.getMessage())
+                              .build();
+    }
 }

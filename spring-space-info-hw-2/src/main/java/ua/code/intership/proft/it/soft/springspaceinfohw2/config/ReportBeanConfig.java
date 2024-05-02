@@ -13,8 +13,4 @@ public class ReportBeanConfig {
         return new CsvReportCreator<>();
     }
 
-    @Bean
-    public ReportCreator<Planet> planetXmlReportCreator() {
-        return new XmlReportCreator<>();
-    }
 }

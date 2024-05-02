@@ -11,15 +11,12 @@ import java.util.Map;
 @Component
 public class PlanetReportCreatorFactory implements ReportCreatorFactory{
     private static final String CSV_FORMAT = "csv";
-    private static final String XML_FORMAT = "xml";
     private final Map<String, ReportCreator<Planet>> reportCreators;
 
     @Autowired
-    public PlanetReportCreatorFactory(@Qualifier("planetCsvReportCreator") ReportCreator<Planet> csvReportCreator,
-                                      @Qualifier("planetXmlReportCreator") ReportCreator<Planet> xmlReportCreator) {
+    public PlanetReportCreatorFactory(@Qualifier("planetCsvReportCreator") ReportCreator<Planet> csvReportCreator) {
         reportCreators = new HashMap<>();
         reportCreators.put(CSV_FORMAT, csvReportCreator);
-        reportCreators.put(XML_FORMAT, xmlReportCreator);
     }
 
     public ReportCreator<Planet> getReportCreator(String format) {
