@@ -9,6 +9,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.mock.web.MockMultipartFile;
 import ua.code.intership.proft.it.soft.springspaceinfohw2.model.Planet;
@@ -29,6 +30,7 @@ import ua.code.intership.proft.it.soft.springspaceinfohw2.repository.PlanetRepos
 import ua.code.intership.proft.it.soft.springspaceinfohw2.repository.PlanetarySystemRepository;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -183,6 +185,26 @@ class PlanetServiceImplTest {
                                                                         .build();
 
         when(planetRepository.findByPlanetarySystemId(planetListRequestDto.idPlanetSystem(), PageRequest.of(0, 10)))
+                .thenReturn(Page.empty());
+
+        when(planetarySystemRepository.existsById(planetListRequestDto.idPlanetSystem())).thenReturn(true);
+
+        assertDoesNotThrow(() -> {
+            PlanetListResponseDto responseDto = planetService.getPlanetPageByPlanetarySystemId(planetListRequestDto);
+
+            assertNotNull(responseDto);
+        });
+    }
+
+    @Test
+    void testGetPlanetPageByPlanetarySystemIdAndName() {
+        PlanetListRequestDto planetListRequestDto = PlanetListRequestDto.builder()
+                                                                        .idPlanetSystem(1L)
+                .namePlanetSystem("test")
+                                                                        .page(0)
+                                                                        .size(10)
+                                                                        .build();
+        when(planetRepository.findByPlanetarySystemIdAndPlanetarySystemName(planetListRequestDto.idPlanetSystem(), planetListRequestDto.namePlanetSystem(), PageRequest.of(0, 10)))
                 .thenReturn(Page.empty());
 
         when(planetarySystemRepository.existsById(planetListRequestDto.idPlanetSystem())).thenReturn(true);
