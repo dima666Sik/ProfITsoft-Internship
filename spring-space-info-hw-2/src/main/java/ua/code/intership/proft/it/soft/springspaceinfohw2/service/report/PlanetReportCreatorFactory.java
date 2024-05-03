@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Component
-public class PlanetReportCreatorFactory implements ReportCreatorFactory{
+public class PlanetReportCreatorFactory implements ReportCreatorFactory {
     private static final String CSV_FORMAT = "csv";
     private final Map<String, ReportCreator<Planet>> reportCreators;
 

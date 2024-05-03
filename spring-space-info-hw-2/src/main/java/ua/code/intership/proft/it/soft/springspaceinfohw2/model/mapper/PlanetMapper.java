@@ -5,13 +5,10 @@ import ua.code.intership.proft.it.soft.springspaceinfohw2.model.PlanetarySystem;
 import ua.code.intership.proft.it.soft.springspaceinfohw2.model.dto.DiameterDto;
 import ua.code.intership.proft.it.soft.springspaceinfohw2.model.dto.MassDto;
 import ua.code.intership.proft.it.soft.springspaceinfohw2.model.dto.request.PlanetRequestDto;
-import ua.code.intership.proft.it.soft.springspaceinfohw2.model.dto.request.PlanetarySystemRequestDto;
 import ua.code.intership.proft.it.soft.springspaceinfohw2.model.dto.response.PlanetResponseDto;
 import ua.code.intership.proft.it.soft.springspaceinfohw2.model.dto.response.PlanetarySystemResponseDto;
 import ua.code.intership.proft.it.soft.springspaceinfohw2.model.si.data.Diameter;
 import ua.code.intership.proft.it.soft.springspaceinfohw2.model.si.data.Mass;
-
-import java.util.Optional;
 
 public final class PlanetMapper {
     private PlanetMapper() {

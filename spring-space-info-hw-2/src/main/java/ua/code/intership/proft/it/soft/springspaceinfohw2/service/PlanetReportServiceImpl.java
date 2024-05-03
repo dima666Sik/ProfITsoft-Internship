@@ -12,8 +12,8 @@ import ua.code.intership.proft.it.soft.springspaceinfohw2.model.dto.request.Plan
 import ua.code.intership.proft.it.soft.springspaceinfohw2.repository.PlanetRepository;
 import ua.code.intership.proft.it.soft.springspaceinfohw2.repository.PlanetarySystemRepository;
 import ua.code.intership.proft.it.soft.springspaceinfohw2.service.exception.FileProcessException;
-import ua.code.intership.proft.it.soft.springspaceinfohw2.service.report.ReportCreator;
 import ua.code.intership.proft.it.soft.springspaceinfohw2.service.report.PlanetReportCreatorFactory;
+import ua.code.intership.proft.it.soft.springspaceinfohw2.service.report.ReportCreator;
 
 import java.io.File;
 import java.io.FileInputStream;

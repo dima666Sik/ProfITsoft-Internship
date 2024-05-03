@@ -32,7 +32,8 @@ public class PlanetarySystemServiceImpl implements PlanetarySystemService {
             throw new IllegalStateException("Planetary system with name " + planetarySystemRequestDto.name() + " already exists");
 
         PlanetarySystem planetarySystem = planetarySystemRequestDtoIntoPlanetarySystem(planetarySystemRequestDto);
-        return planetarySystemRepository.save(planetarySystem).getId();
+        return planetarySystemRepository.save(planetarySystem)
+                                        .getId();
     }
 
     @Transactional
