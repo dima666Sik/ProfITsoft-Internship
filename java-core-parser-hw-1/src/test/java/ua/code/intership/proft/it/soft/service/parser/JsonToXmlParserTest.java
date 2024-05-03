@@ -8,14 +8,13 @@ import ua.code.intership.proft.it.soft.model.attribute.PlanetAttribute;
 import ua.code.intership.proft.it.soft.service.generator.JsonObjectMultipleFileGenerator;
 import ua.code.intership.proft.it.soft.service.generator.ObjectMultipleFileGenerator;
 import ua.code.intership.proft.it.soft.service.util.TimeChecker;
-import ua.code.intership.proft.it.soft.service.util.reflect.ClassMetadataProvider;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static ua.code.intership.proft.it.soft.service.util.FileProcessor.clearFilesByDirectory;
 import static ua.code.intership.proft.it.soft.service.util.constant.FileConst.PATH_TO_XML_FILE_LIST;
-import static ua.code.intership.proft.it.soft.ui.util.constant.PlanetGeneratorConst.PLANET_LISTS;
+import static ua.code.intership.proft.it.soft.service.util.constant.FileTestConst.PATH_TO_TEST_JSON_FILE_LIST;
 import static ua.code.intership.proft.it.soft.service.util.constant.ParserConst.DEFAULT_COUNT_THREADS_TO_PROCESSING_FILES;
-import static ua.code.intership.proft.it.soft.service.util.constant.FileTestConst.*;
+import static ua.code.intership.proft.it.soft.ui.util.constant.PlanetGeneratorConst.PLANET_LISTS;
 
 class JsonToXmlParserTest {
     private FileParser fileParser;
