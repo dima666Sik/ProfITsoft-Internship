@@ -20,6 +20,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
+/**
+ * Service class for generating planet reports.
+ */
 @Service
 @RequiredArgsConstructor
 @Log4j2
@@ -28,6 +31,15 @@ public class PlanetReportServiceImpl implements PlanetReportService {
     private final PlanetarySystemRepository planetarySystemRepository;
     private final PlanetReportCreatorFactory planetReportCreatorFactory;
 
+    /**
+     * Generates a planet report by planetary system ID.
+     *
+     * @param planetReportRequestDto The request DTO containing the parameters for generating the report.
+     * @param fileName               The name of the report file.
+     * @return The resource representing the generated report file.
+     * @throws IllegalStateException If the planetary system ID is not found.
+     * @throws FileProcessException  If the file processing fails.
+     */
     @Override
     public Resource generatePlanetReportByPlanetarySystemId(PlanetReportRequestDto planetReportRequestDto, String fileName) {
         Long planetarySystemId = planetReportRequestDto.idPlanetSystem();

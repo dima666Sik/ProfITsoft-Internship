@@ -30,7 +30,9 @@ import java.util.Optional;
 
 import static ua.code.intership.proft.it.soft.springspaceinfohw2.model.mapper.PlanetMapper.planetIntoPlanetResponseDto;
 import static ua.code.intership.proft.it.soft.springspaceinfohw2.model.mapper.PlanetMapper.planetRequestDtoIntoPlanet;
-
+/**
+ * Service class for managing planets.
+ */
 @Service
 @RequiredArgsConstructor
 @Log4j2
@@ -38,7 +40,12 @@ public class PlanetServiceImpl implements PlanetService {
     private final PlanetRepository planetRepository;
     private final PlanetarySystemRepository planetarySystemRepository;
     private final ObjectMapper objectMapper;
-
+    /**
+     * Creating a new planet based on the provided request data.
+     *
+     * @param planetRequestDto The request data for creating the planet.
+     * @return The ID of the newly created planet.
+     */
     @Transactional
     @Override
     public Long createPlanet(PlanetRequestDto planetRequestDto) {
@@ -46,14 +53,24 @@ public class PlanetServiceImpl implements PlanetService {
         return planetRepository.save(planet)
                                .getId();
     }
-
+    /**
+     * Retrieving information about a planet by its ID.
+     *
+     * @param planetId The ID of the planet to retrieve.
+     * @return Information about the planet.
+     */
     @Override
     public PlanetResponseDto getPlanetById(Long planetId) {
         Planet planet = getPlanetByIdOrThrow(planetId);
 
         return planetIntoPlanetResponseDto(planet);
     }
-
+    /**
+     * Updating information about a planet based on the provided request data.
+     *
+     * @param planetId          The ID of the planet to update.
+     * @param planetRequestDto  The request data for updating the planet.
+     */
     @Transactional
     @Override
     public void updatePlanetById(Long planetId, PlanetRequestDto planetRequestDto) {
@@ -90,7 +107,11 @@ public class PlanetServiceImpl implements PlanetService {
         log.info("The planet with id: " + planet.getId() + " was updated!");
     }
 
-
+    /**
+     * Deleting a planet by its ID.
+     *
+     * @param planetId The ID of the planet to delete.
+     */
     @Transactional
     @Override
     public void deletePlanetById(Long planetId) {
@@ -104,7 +125,13 @@ public class PlanetServiceImpl implements PlanetService {
                 .findById(planetId)
                 .orElseThrow(() -> new IllegalStateException("The planet with id " + planetId + " was not found!"));
     }
-
+    /**
+     * Retrieving a page of planets based on the given planetary system ID.
+     *
+     * @param planetListRequestDto The request DTO containing the planetary system ID and optional name filter.
+     * @return The response DTO containing the paginated list of planets.
+     * @throws IllegalStateException If the specified planetary system does not exist.
+     */
     @Override
     public PlanetListResponseDto getPlanetPageByPlanetarySystemId(PlanetListRequestDto planetListRequestDto) {
         Long planetarySystemId = planetListRequestDto.idPlanetSystem();
@@ -131,7 +158,13 @@ public class PlanetServiceImpl implements PlanetService {
                                     .totalPages(planetListPage.getTotalPages())
                                     .build();
     }
-
+    /**
+     * Uploading planets from a file and saves them to the database.
+     *
+     * @param multipartFile The multipart file containing planet data.
+     * @return Information about the upload process.
+     * @throws FileUploadException If an error occurs during file upload.
+     */
     @Transactional
     @Override
     public ReportInfo uploadPlanetFromFile(MultipartFile multipartFile) {

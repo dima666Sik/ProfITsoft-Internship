@@ -8,7 +8,9 @@ import ua.code.intership.proft.it.soft.springspaceinfohw2.model.Planet;
 
 import java.util.HashMap;
 import java.util.Map;
-
+/**
+ * Factory class for creating {@link ReportCreator} instances for generating reports related to planets.
+ */
 @Component
 @Log4j2
 public class PlanetReportCreatorFactory implements ReportCreatorFactory {
@@ -20,7 +22,13 @@ public class PlanetReportCreatorFactory implements ReportCreatorFactory {
         reportCreators = new HashMap<>();
         reportCreators.put(CSV_FORMAT, csvReportCreator);
     }
-
+    /**
+     * Retrieves the appropriate ReportCreator based on the given format.
+     *
+     * @param format the format of the report (e.g., "csv")
+     * @return the ReportCreator for the specified format
+     * @throws IllegalArgumentException if the format is unknown
+     */
     public ReportCreator<Planet> getReportCreator(String format) {
         ReportCreator<Planet> reportCreator = reportCreators.get(format.toLowerCase());
         if (reportCreator == null) {

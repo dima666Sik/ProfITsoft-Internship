@@ -12,11 +12,25 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.function.IntFunction;
 
+/**
+ * A class for creating CSV reports.
+ *
+ * @param <T> the type of entity for which the report is created
+ */
 @RequiredArgsConstructor
 @Log4j2
 public class CsvReportCreator<T> implements ReportCreator<T> {
     public static final String CSV = ".csv";
 
+    /**
+     * Creates a CSV report file.
+     *
+     * @param pageFunction a function to retrieve data for each page
+     * @param fileName     the name of the report file
+     * @param columnTitles the titles of the columns in the report
+     * @return the generated report file
+     * @throws FileGenerationException if an error occurs while generating the report
+     */
     public File createReport(IntFunction<Page<T>> pageFunction, String fileName, String[] columnTitles) {
         try {
             File tempFile = File.createTempFile(fileName, CSV);
