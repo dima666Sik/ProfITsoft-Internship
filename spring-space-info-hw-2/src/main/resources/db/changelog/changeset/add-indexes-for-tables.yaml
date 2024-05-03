@@ -1,0 +1,21 @@
+databaseChangeLog:
+  - changeSet:
+      id: add_index_planetary_system_name
+      author: Dima Kohol
+      changes:
+        - createIndex:
+            indexName: idx_ps_address
+            tableName: planetary_systems
+            schemaName: public
+            columns:
+              - column:
+                  name: name
+              - column:
+                  name: id
+        - createIndex:
+            indexName: idx_p_address
+            tableName: planets
+            schemaName: public
+            columns:
+              - column:
+                  name: id

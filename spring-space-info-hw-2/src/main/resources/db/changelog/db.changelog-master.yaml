@@ -5,3 +5,5 @@ databaseChangeLog:
       file: db/changelog/changeset/create-sequences.yaml
   - include:
       file: db/changelog/changeset/insert-base-planetary-systems-info.yaml
+  - include:
+      file: db/changelog/changeset/add-indexes-for-tables.yaml
