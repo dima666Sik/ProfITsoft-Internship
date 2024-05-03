@@ -11,6 +11,7 @@ import ua.code.intership.proft.it.soft.springspaceinfohw2.model.attribute.Planet
 import ua.code.intership.proft.it.soft.springspaceinfohw2.model.dto.request.PlanetReportRequestDto;
 import ua.code.intership.proft.it.soft.springspaceinfohw2.repository.PlanetRepository;
 import ua.code.intership.proft.it.soft.springspaceinfohw2.repository.PlanetarySystemRepository;
+import ua.code.intership.proft.it.soft.springspaceinfohw2.service.exception.FileProcessException;
 import ua.code.intership.proft.it.soft.springspaceinfohw2.service.report.ReportCreator;
 import ua.code.intership.proft.it.soft.springspaceinfohw2.service.report.PlanetReportCreatorFactory;
 
@@ -26,7 +27,7 @@ public class PlanetReportServiceImpl implements PlanetReportService {
     private final PlanetReportCreatorFactory planetReportCreatorFactory;
 
     @Override
-    public Resource generatePlanetReportByPlanetarySystemId(PlanetReportRequestDto planetReportRequestDto) {
+    public Resource generatePlanetReportByPlanetarySystemId(PlanetReportRequestDto planetReportRequestDto, String fileName) {
         Long planetarySystemId = planetReportRequestDto.idPlanetSystem();
 
         if (!planetarySystemRepository.existsById(planetarySystemId)) {
@@ -37,16 +38,16 @@ public class PlanetReportServiceImpl implements PlanetReportService {
 
         ReportCreator<Planet> reportCreator = planetReportCreatorFactory.getReportCreator(fileFormat);
 
-        File reportFile = generatePlanetReportFile(reportCreator, planetReportRequestDto.pageSize());
+        File reportFile = generatePlanetReportFile(reportCreator, fileName, planetReportRequestDto.pageSize());
 
         try {
             return new InputStreamResource(new FileInputStream(reportFile));
         } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
+            throw new FileProcessException("The process file was not successful!", e);
         }
     }
 
-    private File generatePlanetReportFile(ReportCreator<Planet> planetReportCreator, int pageSize) {
+    private File generatePlanetReportFile(ReportCreator<Planet> planetReportCreator, String fileName, int pageSize) {
         String[] columnPlanetTitles = new String[]{PlanetAttribute.ID, PlanetAttribute.NAME, PlanetAttribute.HAS_RINGS,
                 PlanetAttribute.HAS_MOONS, PlanetAttribute.ATMOSPHERIC_COMPOSITION,
                 PlanetAttribute.MASS, PlanetAttribute.DIAMETER, PlanetAttribute.PLANETARY_SYSTEM};
@@ -54,6 +55,6 @@ public class PlanetReportServiceImpl implements PlanetReportService {
         return planetReportCreator.createReport(pageNumber -> {
             Pageable pageable = PageRequest.of(pageNumber, pageSize);
             return planetRepository.findAll(pageable);
-        }, columnPlanetTitles);
+        }, fileName, columnPlanetTitles);
     }
 }

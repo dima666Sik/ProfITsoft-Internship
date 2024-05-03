@@ -13,12 +13,11 @@ import java.util.function.IntFunction;
 
 @RequiredArgsConstructor
 public class CsvReportCreator<T> implements ReportCreator<T> {
-    private static final String CSV_FILE_NAME = "planet_report_by_planetarySystemId";
     public static final String CSV = ".csv";
 
-    public File createReport(IntFunction<Page<T>> pageFunction, String[] columnTitles) {
+    public File createReport(IntFunction<Page<T>> pageFunction, String fileName, String[] columnTitles) {
         try {
-            File tempFile = File.createTempFile(CSV_FILE_NAME, CSV);
+            File tempFile = File.createTempFile(fileName, CSV);
             PrintWriter printWriter = new PrintWriter(tempFile);
             CSVWriter writer = new CSVWriter(printWriter);
 

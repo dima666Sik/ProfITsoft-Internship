@@ -69,11 +69,14 @@ public class PlanetController {
 
     @PostMapping(value = "_report")
     public ResponseEntity<Resource> generatePlanetReportByPlanetarySystemId(@Valid @RequestBody PlanetReportRequestDto planetReportRequestDto) {
-        Resource resource = planetReportService.generatePlanetReportByPlanetarySystemId(planetReportRequestDto);
+        String fileName = "planet_report";
+
+        Resource resource = planetReportService.generatePlanetReportByPlanetarySystemId(planetReportRequestDto, fileName);
 
         HttpHeaders headers = new HttpHeaders();
-        headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=planet_report." + planetReportRequestDto.fileFormat()
-                                                                                                                   .toLowerCase());
+
+        headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + fileName + "." + planetReportRequestDto.fileFormat()
+                                                                                                                      .toLowerCase());
 
         return ResponseEntity.ok()
                              .headers(headers)

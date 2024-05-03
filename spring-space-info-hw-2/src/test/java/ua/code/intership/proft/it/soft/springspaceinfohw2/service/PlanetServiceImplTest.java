@@ -103,6 +103,18 @@ class PlanetServiceImplTest {
     }
 
     @Test
+    void getPlanetByIdThrowsIllegalStateException() {
+        // Given
+        Long planetId = planetRequestDto.id();
+
+        when(planetRepository.findById(planetId)).thenReturn(Optional.empty());
+
+        Throwable exception = assertThrows(IllegalStateException.class,
+                () -> planetService.getPlanetById(planetId));
+        assertEquals("The planet with id " + planetId + " was not found!", exception.getMessage());
+    }
+
+    @Test
     void createPlanet() {
         Planet planet = Planet.builder()
                               .id(1L)
@@ -197,10 +209,28 @@ class PlanetServiceImplTest {
     }
 
     @Test
+    void testGetPlanetPage() {
+        PlanetListRequestDto planetListRequestDto = PlanetListRequestDto.builder()
+                                                                        .idPlanetSystem(1L)
+                                                                        .page(0)
+                                                                        .size(10)
+                                                                        .build();
+
+        when(planetRepository.findByPlanetarySystemId(planetListRequestDto.idPlanetSystem(), PageRequest.of(0, 10)))
+                .thenReturn(Page.empty());
+
+        when(planetarySystemRepository.existsById(planetListRequestDto.idPlanetSystem())).thenReturn(false);
+
+        Throwable exception = assertThrows(IllegalStateException.class,
+                () -> planetService.getPlanetPageByPlanetarySystemId(planetListRequestDto));
+        assertEquals("The planet system by id: " + planetListRequestDto.idPlanetSystem() + " was not found!", exception.getMessage());
+    }
+
+    @Test
     void testGetPlanetPageByPlanetarySystemIdAndName() {
         PlanetListRequestDto planetListRequestDto = PlanetListRequestDto.builder()
                                                                         .idPlanetSystem(1L)
-                .namePlanetSystem("test")
+                                                                        .namePlanetSystem("test")
                                                                         .page(0)
                                                                         .size(10)
                                                                         .build();

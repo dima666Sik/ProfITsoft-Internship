@@ -4,8 +4,9 @@ package ua.code.intership.proft.it.soft.springspaceinfohw2.model.dto.request;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import lombok.Builder;
 import lombok.NonNull;
-
+@Builder
 public record PlanetReportRequestDto(
         @NonNull
         Long idPlanetSystem,

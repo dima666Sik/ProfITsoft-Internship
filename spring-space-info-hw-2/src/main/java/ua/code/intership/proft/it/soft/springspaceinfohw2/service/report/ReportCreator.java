@@ -6,5 +6,5 @@ import java.io.File;
 import java.util.function.IntFunction;
 
 public interface ReportCreator<T> {
-    File createReport(IntFunction<Page<T>> pageFunction, String[] columnTitles);
+    File createReport(IntFunction<Page<T>> pageFunction, String fileName, String[] columnTitles);
 }
