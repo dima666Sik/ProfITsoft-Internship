@@ -87,6 +87,7 @@ public class PlanetServiceImpl implements PlanetService {
         planet.setAtmosphericComposition(planetRequestDto.atmosphericComposition());
 
         planetRepository.save(planet);
+        log.info("The planet with id: " + planet.getId() + " was updated!");
     }
 
 
@@ -95,6 +96,7 @@ public class PlanetServiceImpl implements PlanetService {
     public void deletePlanetById(Long planetId) {
         Planet planet = getPlanetByIdOrThrow(planetId);
         planetRepository.delete(planet);
+        log.info("The planet with id: " + planet.getId() + " was deleted!");
     }
 
     private Planet getPlanetByIdOrThrow(Long planetId) {
@@ -157,8 +159,11 @@ public class PlanetServiceImpl implements PlanetService {
                 handlePlanetSave(planet, reportInfo);
             });
 
+            log.info("The report info was saved and data was uploaded!");
+
             return reportInfo;
         } catch (IOException e) {
+            log.error("The try to upload file was unsuccessful!", e);
             throw new FileUploadException("The try to upload file was unsuccessful!", e);
         }
 

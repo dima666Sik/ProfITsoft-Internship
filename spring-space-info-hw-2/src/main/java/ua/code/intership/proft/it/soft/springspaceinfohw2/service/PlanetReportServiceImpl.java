@@ -1,6 +1,7 @@
 package ua.code.intership.proft.it.soft.springspaceinfohw2.service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
 import org.springframework.data.domain.PageRequest;
@@ -21,6 +22,7 @@ import java.io.FileNotFoundException;
 
 @Service
 @RequiredArgsConstructor
+@Log4j2
 public class PlanetReportServiceImpl implements PlanetReportService {
     private final PlanetRepository planetRepository;
     private final PlanetarySystemRepository planetarySystemRepository;
@@ -31,6 +33,7 @@ public class PlanetReportServiceImpl implements PlanetReportService {
         Long planetarySystemId = planetReportRequestDto.idPlanetSystem();
 
         if (!planetarySystemRepository.existsById(planetarySystemId)) {
+            log.error("The planet system by id: " + planetarySystemId + " was not found!");
             throw new IllegalStateException("The planet system by id: " + planetarySystemId + " was not found!");
         }
 
@@ -43,6 +46,7 @@ public class PlanetReportServiceImpl implements PlanetReportService {
         try {
             return new InputStreamResource(new FileInputStream(reportFile));
         } catch (FileNotFoundException e) {
+            log.error("The process file was not successful!", e);
             throw new FileProcessException("The process file was not successful!", e);
         }
     }

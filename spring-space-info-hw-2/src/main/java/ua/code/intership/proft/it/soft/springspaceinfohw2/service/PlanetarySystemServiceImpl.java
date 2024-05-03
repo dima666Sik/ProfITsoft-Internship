@@ -1,6 +1,7 @@
 package ua.code.intership.proft.it.soft.springspaceinfohw2.service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ua.code.intership.proft.it.soft.springspaceinfohw2.model.PlanetarySystem;
@@ -14,6 +15,7 @@ import static ua.code.intership.proft.it.soft.springspaceinfohw2.model.mapper.Pl
 
 @Service
 @RequiredArgsConstructor
+@Log4j2
 public class PlanetarySystemServiceImpl implements PlanetarySystemService {
     private final PlanetarySystemRepository planetarySystemRepository;
 
@@ -28,8 +30,10 @@ public class PlanetarySystemServiceImpl implements PlanetarySystemService {
     @Transactional
     @Override
     public Long createPlanetarySystem(PlanetarySystemRequestDto planetarySystemRequestDto) {
-        if (planetarySystemRepository.existsByName(planetarySystemRequestDto.name()))
+        if (planetarySystemRepository.existsByName(planetarySystemRequestDto.name())) {
+            log.error("Planetary system with name " + planetarySystemRequestDto.name() + " already exists");
             throw new IllegalStateException("Planetary system with name " + planetarySystemRequestDto.name() + " already exists");
+        }
 
         PlanetarySystem planetarySystem = planetarySystemRequestDtoIntoPlanetarySystem(planetarySystemRequestDto);
         return planetarySystemRepository.save(planetarySystem)
@@ -48,8 +52,10 @@ public class PlanetarySystemServiceImpl implements PlanetarySystemService {
     @Transactional
     @Override
     public void deletePlanetarySystem(Long planetarySystemId) {
-        if (!planetarySystemRepository.existsById(planetarySystemId))
+        if (!planetarySystemRepository.existsById(planetarySystemId)) {
+            log.error("Could not find planetary system by id " + planetarySystemId);
             throw new IllegalStateException("Could not find planetary system by id " + planetarySystemId);
+        }
 
         planetarySystemRepository.deleteById(planetarySystemId);
     }

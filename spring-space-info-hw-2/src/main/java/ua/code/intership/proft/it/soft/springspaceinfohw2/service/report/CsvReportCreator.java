@@ -2,6 +2,7 @@ package ua.code.intership.proft.it.soft.springspaceinfohw2.service.report;
 
 import com.opencsv.CSVWriter;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
 import ua.code.intership.proft.it.soft.springspaceinfohw2.service.exception.FileGenerationException;
 import ua.code.intership.proft.it.soft.springspaceinfohw2.service.reflect.ClassMetadataProvider;
@@ -12,6 +13,7 @@ import java.io.PrintWriter;
 import java.util.function.IntFunction;
 
 @RequiredArgsConstructor
+@Log4j2
 public class CsvReportCreator<T> implements ReportCreator<T> {
     public static final String CSV = ".csv";
 
@@ -41,8 +43,11 @@ public class CsvReportCreator<T> implements ReportCreator<T> {
             writer.close();
             printWriter.close();
 
+            log.info("The .csv report file was successfully created!");
+
             return tempFile;
         } catch (IOException e) {
+            log.error("Failed to generate planet report", e);
             throw new FileGenerationException("Failed to generate planet report", e);
         }
     }
