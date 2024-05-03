@@ -10,9 +10,9 @@ import com.fasterxml.jackson.databind.SerializationFeature;
  * for use throughout the application and can have more features to
  * interact with Jackson library.
  */
-public final class JacksonConst {
+public final class JacksonProvider {
 
-    private JacksonConst() {
+    private JacksonProvider() {
     }
 
     public static final ObjectMapper OBJECT_MAPPER;
@@ -24,7 +24,7 @@ public final class JacksonConst {
         // about the json part
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         // Ignore null values when writing json.
-        mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL.NON_NULL);
+        mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
         // Write the time as a string instead of long so that it is human-readable.
         mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false);
 

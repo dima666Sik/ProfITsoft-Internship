@@ -5,7 +5,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ua.code.intership.proft.it.soft.model.Planet;
 import ua.code.intership.proft.it.soft.model.StatisticsInfo;
-import ua.code.intership.proft.it.soft.model.attribute.PlanetAttribute;
 import ua.code.intership.proft.it.soft.service.generator.JsonObjectMultipleFileGenerator;
 import ua.code.intership.proft.it.soft.service.generator.ObjectMultipleFileGenerator;
 
@@ -44,11 +43,11 @@ class PlanetStatisticsProcessorTest {
 
     @Test
     void testCollectStatisticsWithValidJsonFileAndAttribute() {
-        assertDoesNotThrow(() -> processor.collectStatistics(validJsonFile, PlanetAttribute.ID));
-        assertDoesNotThrow(() -> processor.collectStatistics(validJsonFile, PlanetAttribute.HAS_MOONS));
-        assertDoesNotThrow(() -> processor.collectStatistics(validJsonFile, PlanetAttribute.NAME));
-        assertDoesNotThrow(() -> processor.collectStatistics(validJsonFile, PlanetAttribute.HAS_RINGS));
-        assertDoesNotThrow(() -> processor.collectStatistics(validJsonFile, PlanetAttribute.ATMOSPHERIC_COMPOSITION));
+        assertDoesNotThrow(() -> processor.collectStatistics(validJsonFile, Planet.Fields.id.name()));
+        assertDoesNotThrow(() -> processor.collectStatistics(validJsonFile, Planet.Fields.hasMoons.name()));
+        assertDoesNotThrow(() -> processor.collectStatistics(validJsonFile, Planet.Fields.name.name()));
+        assertDoesNotThrow(() -> processor.collectStatistics(validJsonFile, Planet.Fields.hasRings.name()));
+        assertDoesNotThrow(() -> processor.collectStatistics(validJsonFile, Planet.Fields.atmosphericComposition.name()));
     }
 
     @Test
@@ -62,13 +61,13 @@ class PlanetStatisticsProcessorTest {
 
     @Test
     void testGetStatisticsSortedSetShouldWithoutThrow() {
-        assertDoesNotThrow(() -> processor.collectStatistics(validJsonFile, PlanetAttribute.ATMOSPHERIC_COMPOSITION));
+        assertDoesNotThrow(() -> processor.collectStatistics(validJsonFile, Planet.Fields.atmosphericComposition.name()));
         assertDoesNotThrow(() -> processor.getStatisticsSortedSet((el1, el2) -> el2.getNumberOfRepetitions() - el1.getNumberOfRepetitions()));
     }
 
     @Test
     void testGetStatisticsSortedSetShouldReturnSortedSet() {
-        assertDoesNotThrow(() -> processor.collectStatistics(validJsonFile, PlanetAttribute.ATMOSPHERIC_COMPOSITION));
+        assertDoesNotThrow(() -> processor.collectStatistics(validJsonFile, Planet.Fields.atmosphericComposition.name()));
 
         assertDoesNotThrow(() -> {
             Comparator<StatisticsInfo<? extends Comparable<?>>> comparatorByNumberOfRepetitions = (el1, el2) -> el2.getNumberOfRepetitions() - el1.getNumberOfRepetitions();

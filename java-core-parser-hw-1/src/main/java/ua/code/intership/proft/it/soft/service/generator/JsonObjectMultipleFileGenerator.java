@@ -14,7 +14,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicReferenceArray;
 
 import static ua.code.intership.proft.it.soft.service.util.FileProcessor.*;
-import static ua.code.intership.proft.it.soft.service.util.constant.JacksonConst.OBJECT_MAPPER;
+import static ua.code.intership.proft.it.soft.service.util.constant.JacksonProvider.OBJECT_MAPPER;
 
 /**
  * JsonObjectMultipleFileGenerator is a class that implements the ObjectMultipleFileGenerator interface.

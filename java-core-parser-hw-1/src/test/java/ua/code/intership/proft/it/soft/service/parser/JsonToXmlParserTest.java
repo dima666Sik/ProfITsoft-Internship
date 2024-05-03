@@ -4,7 +4,6 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ua.code.intership.proft.it.soft.model.Planet;
-import ua.code.intership.proft.it.soft.model.attribute.PlanetAttribute;
 import ua.code.intership.proft.it.soft.service.generator.JsonObjectMultipleFileGenerator;
 import ua.code.intership.proft.it.soft.service.generator.ObjectMultipleFileGenerator;
 import ua.code.intership.proft.it.soft.service.util.TimeChecker;
@@ -37,29 +36,21 @@ class JsonToXmlParserTest {
     void testParseShouldWithoutThrow() {
         TimeChecker.timeTest(() ->
                 assertDoesNotThrow(() ->
-                        fileParser.parse(PATH_TO_TEST_JSON_FILE_LIST, PlanetAttribute.ATMOSPHERIC_COMPOSITION)));
+                        fileParser.parse(PATH_TO_TEST_JSON_FILE_LIST, Planet.Fields.atmosphericComposition.name())));
     }
 
     @Test
     void testParseShouldThrowWithoutPathToJsonFileList() {
         Throwable exception = assertThrows(IllegalArgumentException.class, () ->
-                fileParser.parse(null, PlanetAttribute.ATMOSPHERIC_COMPOSITION));
+                fileParser.parse(null, Planet.Fields.atmosphericComposition.name()));
         assertEquals("Invalid path to files: " + null + ".\nPlease fill the path to files.", exception.getMessage());
-    }
-
-    @Test
-    void testParseShouldThrowWithoutValidAttribute() {
-        String attribute = "unknownAttribute";
-        Throwable exception = assertThrows(IllegalArgumentException.class, () ->
-                fileParser.parse(PATH_TO_TEST_JSON_FILE_LIST, attribute));
-        assertEquals("Invalid attribute: " + attribute, exception.getMessage());
     }
 
     @Test
     void testParseShouldThrowWithoutPathToDirectory() {
         String path = "wrongPathToDirectory";
         Throwable exception = assertThrows(IllegalArgumentException.class, () ->
-                fileParser.parse(path, PlanetAttribute.ATMOSPHERIC_COMPOSITION));
+                fileParser.parse(path, Planet.Fields.atmosphericComposition.name()));
         assertEquals("The file must be a directory, but it is not!", exception.getMessage());
     }
 }

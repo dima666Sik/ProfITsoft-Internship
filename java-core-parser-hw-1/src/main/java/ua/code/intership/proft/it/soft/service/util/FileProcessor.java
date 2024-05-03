@@ -69,13 +69,13 @@ public final class FileProcessor {
     }
 
     /**
-     * Retrieves the JSON files from the specified directory and extension
+     * Retrieves the files from the specified directory and extension
      *
-     * @param pathToJsonFiles the path to the directory containing JSON files
+     * @param pathToJsonFiles the path to the directory containing files
      * @param extension       the extension of the files that we want to retrieve
-     * @return an array of File objects representing the JSON files
+     * @return an array of File objects representing the files
      * @throws IllegalArgumentException if the specified path is not a directory, if the directory is empty,
-     *                                  or if there are no JSON files in the directory
+     *                                  or if there are no files in the directory
      */
     public static File[] getFiles(String pathToJsonFiles, String extension) {
         File directoryToJsonFiles = new File(pathToJsonFiles);
@@ -88,15 +88,15 @@ public final class FileProcessor {
         if (allFilesFromDirectory == null)
             throw new IllegalArgumentException("Array with list files can not be null!");
 
-        File[] jsonFiles = Arrays.stream(allFilesFromDirectory)
+        File[] files = Arrays.stream(allFilesFromDirectory)
                                  .filter(file -> file.getName()
                                                      .endsWith(extension))
                                  .toArray(File[]::new);
 
-        if (jsonFiles.length == 0)
+        if (files.length == 0)
             throw new IllegalArgumentException("Files absent! " +
                     "Choose another directory with files, or create file into it.");
 
-        return jsonFiles;
+        return files;
     }
 }

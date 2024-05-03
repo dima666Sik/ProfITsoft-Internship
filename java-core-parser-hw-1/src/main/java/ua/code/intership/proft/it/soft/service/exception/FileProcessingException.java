@@ -1,4 +1,8 @@
 package ua.code.intership.proft.it.soft.service.exception;
+/**
+ * Custom exception class for file processing operations.
+ * This class extends RuntimeException to allow unchecked exceptions.
+ */
 public class FileProcessingException extends RuntimeException {
     public FileProcessingException() {
     }

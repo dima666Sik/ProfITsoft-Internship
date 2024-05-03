@@ -1,6 +1,7 @@
 package ua.code.intership.proft.it.soft.ui.util.constant;
 
-import static ua.code.intership.proft.it.soft.model.attribute.PlanetAttribute.*;
+import ua.code.intership.proft.it.soft.model.Planet;
+
 import static ua.code.intership.proft.it.soft.service.util.constant.FileConst.PATH_TO_JSON_FILE_LIST;
 import static ua.code.intership.proft.it.soft.service.util.constant.FileConst.PATH_TO_XML_FILE_LIST;
 
@@ -38,9 +39,9 @@ public final class ConsoleConst {
                 ==============================================
             """.formatted(PATH_TO_JSON_FILE_LIST,
             PATH_TO_XML_FILE_LIST,
-            ID,
-            NAME,
-            HAS_RINGS,
-            HAS_MOONS,
-            ATMOSPHERIC_COMPOSITION);
+            Planet.Fields.id.name(),
+            Planet.Fields.name.name(),
+            Planet.Fields.hasRings.name(),
+            Planet.Fields.hasMoons.name(),
+            Planet.Fields.atmosphericComposition.name());
 }

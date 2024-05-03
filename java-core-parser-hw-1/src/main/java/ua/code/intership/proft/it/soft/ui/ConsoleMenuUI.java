@@ -22,7 +22,16 @@ public class ConsoleMenuUI {
         printMessageWithNewLine(MAIN_MENU_APP);
         printMessageWithNewLine(MESSAGE_TO_CHOOSE_FUNCTION_FROM_THE_MENU);
         printMessageWithoutNewLine(YOUR_CHOICE);
-        int choice = scanner.nextInt();
+        int choice;
+
+        try {
+            choice = scanner.nextInt();
+        } catch (Exception e) {
+            printMessageWithNewLine(MESSAGE_TO_NOTIFY_ABOUT_INVALID_INPUT);
+            scanner.close();
+            return false;
+        }
+
         scanner.nextLine(); // need to read '\n' after reading wrote int symbol.
 
         switch (choice) {

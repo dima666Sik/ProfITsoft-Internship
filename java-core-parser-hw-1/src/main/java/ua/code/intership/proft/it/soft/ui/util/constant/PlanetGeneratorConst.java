@@ -16,8 +16,9 @@ import static ua.code.intership.proft.it.soft.ui.util.random.Randomize.generateR
 public final class PlanetGeneratorConst {
     private PlanetGeneratorConst() {
     }
+
     public static final List<List<Planet>> PLANET_LISTS = List.of(
-            getPlanets(generateRandomize(10,50))
+            getPlanets(generateRandomize(10, 50))
 
     );
 
@@ -39,12 +40,21 @@ public final class PlanetGeneratorConst {
     }
 
     private static String generateRandomByAtmosphericCompositionIndex(int atmosphericCompositionIndex) {
-        return atmosphericCompositionIndex >= 9 ? "Oxygen, Nitrogen, Carbon dioxide" :
-                atmosphericCompositionIndex >= 7 ? "Oxygen, Nitrogen" :
-                        atmosphericCompositionIndex >= 5 ? "Nitrogen, Carbon dioxide" :
-                                atmosphericCompositionIndex >= 3 ? "Hydrogen, Helium" :
-                                        atmosphericCompositionIndex >= 1 ? "Beryllium" :
-                                                "Magnesium";
+        String atmosphericComposition;
+        if (atmosphericCompositionIndex >= 9) {
+            atmosphericComposition = "Oxygen, Nitrogen, Carbon dioxide";
+        } else if (atmosphericCompositionIndex >= 7) {
+            atmosphericComposition = "Oxygen, Nitrogen";
+        } else if (atmosphericCompositionIndex >= 5) {
+            atmosphericComposition = "Nitrogen, Carbon dioxide";
+        } else if (atmosphericCompositionIndex >= 3) {
+            atmosphericComposition = "Hydrogen, Helium";
+        } else if (atmosphericCompositionIndex >= 1) {
+            atmosphericComposition = "Beryllium";
+        } else {
+            atmosphericComposition = "Magnesium";
+        }
+        return atmosphericComposition;
     }
 
     private static Planet generatePlanet(long id, String name, double massValue, double diameterValue,

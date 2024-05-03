@@ -1,7 +1,7 @@
 package ua.code.intership.proft.it.soft.service.parser;
 
 import lombok.extern.log4j.Log4j2;
-import ua.code.intership.proft.it.soft.model.attribute.PlanetAttribute;
+import ua.code.intership.proft.it.soft.model.Planet;
 import ua.code.intership.proft.it.soft.service.exception.FileGenerationException;
 import ua.code.intership.proft.it.soft.service.exception.FileProcessingException;
 import ua.code.intership.proft.it.soft.service.generator.FileCreator;
@@ -77,10 +77,7 @@ public class JsonToXmlParser implements FileParser {
         if (pathToJsonFiles == null || pathToJsonFiles.isEmpty())
             throw new IllegalArgumentException("Invalid path to files: " + pathToJsonFiles + ".\nPlease fill the path to files.");
 
-        if (!isValidAttribute(attribute)) throw new IllegalArgumentException("Invalid attribute: " + attribute);
-
         log.info("The path to files: {} is valid and attribute: {} is exists", pathToJsonFiles, attribute);
-
     }
 
     /**
@@ -128,16 +125,6 @@ public class JsonToXmlParser implements FileParser {
                 throw new FileGenerationException("Error generating files!", exception);
             }
         }
-    }
-
-    /**
-     * Checks if the specified attribute is valid.
-     *
-     * @param attribute the attribute to validate
-     * @return true if the attribute is valid, false otherwise
-     */
-    private boolean isValidAttribute(String attribute) {
-        return PlanetAttribute.isAttributeExist(attribute);
     }
 
 }

@@ -1,4 +1,8 @@
 package ua.code.intership.proft.it.soft.service.exception;
+/**
+ * Custom exception class for file generation operations.
+ * This class extends RuntimeException to allow unchecked exceptions.
+ */
 public class FileGenerationException extends RuntimeException {
     public FileGenerationException() {
     }

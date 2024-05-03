@@ -1,18 +1,22 @@
 package ua.code.intership.proft.it.soft.ui.util.random;
 
-public final class Randomize {
+import java.util.Random;
+
+public class Randomize {
+    private static final Random random = new Random();
+
     private Randomize() {
     }
 
     public static int generateRandomize(int min, int max) {
-        return (int) Math.floor(Math.random() * (max - min + 1) + min);
+        return random.nextInt(max - min + 1) + min;
     }
 
     public static double generateRandomize(double min, double max) {
-        return Math.random() * (max - min) + min;
+        return random.nextDouble() * (max - min) + min;
     }
 
     public static boolean generateRandomize() {
-        return Math.random() > 0.5;
+        return random.nextBoolean();
     }
 }

@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.FieldNameConstants;
 import ua.code.intership.proft.it.soft.model.si.data.Diameter;
 import ua.code.intership.proft.it.soft.model.si.data.Mass;
 
@@ -11,6 +12,7 @@ import ua.code.intership.proft.it.soft.model.si.data.Mass;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@FieldNameConstants(asEnum = true)
 public class Planet {
     private long id;
     private String name;
