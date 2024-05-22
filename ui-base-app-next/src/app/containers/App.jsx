@@ -18,7 +18,7 @@ import Header from "../components/Header";
 import IntlProvider from "../components/IntlProvider";
 import MissedPage from "../components/MissedPage";
 import SearchParamsConfigurator from "../components/SearchParamsConfigurator";
-import ListEntitiesPage from "pageProviders/ListEntities";
+import ListEntitiesPage from "pageProviders/PlanetList";
 
 function App() {
 	const dispatch = useDispatch();
