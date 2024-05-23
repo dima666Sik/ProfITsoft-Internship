@@ -19,6 +19,7 @@ import IntlProvider from "../components/IntlProvider";
 import MissedPage from "../components/MissedPage";
 import SearchParamsConfigurator from "../components/SearchParamsConfigurator";
 import ListEntitiesPage from "pageProviders/PlanetList";
+import DetailPlanet from "pageProviders/DetailPlanet";
 
 function App() {
 	const dispatch = useDispatch();
@@ -112,16 +113,20 @@ function App() {
 											path={`${pageURLs[pages.login]}`}
 										/>
 										<Route
+											element={<ListEntitiesPage />}
+											path={`${pageURLs[pages.listEntitiesPage]}`}
+										/>
+										<Route
+											element={<DetailPlanet />}
+											path={`${pageURLs[pages.detailEntityPage]}/:planetId`}
+										/>
+										<Route
 											element={
 												<MissedPage
 													redirectPage={`${pageURLs[pages.defaultPage]}`}
 												/>
 											}
 											path="*"
-										/>
-										<Route
-											element={<ListEntitiesPage />}
-											path={`${pageURLs[pages.listEntitiesPage]}`}
 										/>
 									</Routes>
 								)}

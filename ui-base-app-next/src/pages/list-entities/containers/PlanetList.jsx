@@ -2,7 +2,7 @@ import {useIntl} from "react-intl";
 import Typography from "../../../components/Typography";
 import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {deletePlanet, fetchAllPlanets} from "../actions/planet";
+import {deletePlanet, fetchAllPlanets, filterPlanets} from "../actions/planet";
 import Card from "../../../components/Card";
 import CardContent from "../../../components/CardContent";
 import IconButton from "../../../components/IconButton";
@@ -15,8 +15,11 @@ import Pagination from "../../../components/Pagination";
 import Button from "../../../components/Button";
 import Select from "../../../components/Select";
 import MenuItem from "../../../components/MenuItem";
-import {InputLabel} from "@mui/material";
 import FormControl from "../../../components/FormControl";
+import InputLabel from "../../../components/InputLabel";
+import pagesURLs from 'constants/pagesURLs';
+import Link from "../../../components/Link";
+import * as pages from "../../../constants/pages";
 
 const getPlanetListStyles = createUseStyles(() => ({
     ulPlanetList: {
@@ -43,7 +46,6 @@ const PlanetList = () => {
     const dispatch = useDispatch();
     const planets = useSelector((state) => state.planets.planets);
     const isLoading = useSelector((state) => state.planets.isLoading);
-    const error = useSelector((state) => state.planets.error);
 
     const [selectedPlanet, setSelectedPlanet] = useState(null);
     const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -55,26 +57,36 @@ const PlanetList = () => {
     const [snackbarMessage, setSnackbarMessage] = useState("");
     const [snackbarSeverity, setSnackbarSeverity] = useState("success");
     const [hoveredPlanetId, setHoveredPlanetId] = useState(null);
-    const [currentPage, setCurrentPage] = useState(1);
+
+    const savedFilter = localStorage.getItem('filterValue') || 'Default';
+    const savedPage = parseInt(localStorage.getItem('currentPage'), 10) || 1;
+
+    const [currentPage, setCurrentPage] = useState(savedPage);
+    const [filter, setFilter] = useState(savedFilter);
+
 
     useEffect(() => {
-        dispatch(fetchAllPlanets())
-            .then(() => {
-                setSnackbarMessage(formatMessage({id: 'fetchAllPlanetSuccess'}));
-                setSnackbarSeverity("success");
-                setSnackbarOpen(true);
-            })
-            .catch((e) => {
-                setSnackbarMessage(formatMessage({id: 'fetchAllPlanetError'}));
-                setSnackbarSeverity("error");
-                setSnackbarOpen(true);
-                setIsDialogOpen(true);
-                setDialogMessage(e.message);
-                setTypeOfDialog("error");
-                setNamePrimaryBtn("Close");
-                setTitleDialog("Fetch error info dialog")
-            });
-    }, [dispatch]);
+        if (savedFilter !== 'Default') {
+            handleFilterChange(filter);
+        } else {
+            dispatch(fetchAllPlanets())
+                .then(() => {
+                    setSnackbarMessage(formatMessage({id: 'fetchAllPlanetSuccess'}));
+                    setSnackbarSeverity("success");
+                    setSnackbarOpen(true);
+                })
+                .catch((e) => {
+                    setSnackbarMessage(formatMessage({id: 'fetchAllPlanetError'}));
+                    setSnackbarSeverity("error");
+                    setSnackbarOpen(true);
+                    setIsDialogOpen(true);
+                    setDialogMessage(e.message);
+                    setTypeOfDialog("error");
+                    setNamePrimaryBtn("Close");
+                    setTitleDialog("Fetch error info dialog")
+                });
+        }
+    }, [dispatch, filter]);
 
     const handleDeletePlanetByClick = (planet) => {
         setSelectedPlanet(planet);
@@ -114,6 +126,23 @@ const PlanetList = () => {
 
     const handlePageChange = (event, value) => {
         setCurrentPage(value);
+        localStorage.setItem('currentPage', value);
+    };
+
+    const handleFilterChange = (value) => {
+        setFilter(value);
+        dispatch(filterPlanets(value))
+            .then(() => {
+                setSnackbarMessage(formatMessage({id: 'filterSuccess'}));
+                setSnackbarSeverity("success");
+                setSnackbarOpen(true);
+                localStorage.setItem('filterValue', value);
+            })
+            .catch((e) => {
+                setSnackbarMessage(formatMessage({id: 'filterError'}));
+                setSnackbarSeverity("error");
+                setSnackbarOpen(true);
+            });
     };
 
     const planetListStyles = getPlanetListStyles();
@@ -123,22 +152,20 @@ const PlanetList = () => {
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
     const currentPlanets = planets.slice(indexOfFirstItem, indexOfLastItem);
 
-
+    console.log(`${pagesURLs[pages.detailEntityPage]}/${1}`)
     return (
         <div>
             <div className={planetListStyles.menuBtn}>
                 <FormControl>
-                    <InputLabel id="demo-simple-select-label">Filter</InputLabel>
+                    <InputLabel>{formatMessage({id: 'btnFilter'})}</InputLabel>
                     <Select
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
-                        // value={age}
-                        label="Filter"
-                        // onChange={handleChange}
+                        label={formatMessage({id: 'btnFilter'})}
+                        value={filter}
+                        onChange={(event) => handleFilterChange(event.target.value)}
                     >
-                        <MenuItem>Default</MenuItem>
-                        <MenuItem>DESC</MenuItem>
-                        <MenuItem>ASC</MenuItem>
+                        <MenuItem value="Default">Default</MenuItem>
+                        <MenuItem value="DESC">DESC</MenuItem>
+                        <MenuItem value="ASC">ASC</MenuItem>
                     </Select>
                 </FormControl>
                 <Button>{formatMessage({id: 'btnCreatePlanet'})}</Button>
@@ -154,15 +181,19 @@ const PlanetList = () => {
                         onMouseMove={() => setHoveredPlanetId(planet.id)}
                         onMouseOut={() => setHoveredPlanetId(null)}
                     >
-                        <Card variant="info">
-                            <CardContent>
-                                <Typography>{formatMessage({id: 'planetName'})}: {planet.name}</Typography>
-                                <Typography>{formatMessage({id: 'hasRings'})}: {planet.hasRings === true ? "Yes" : "No"}</Typography>
-                                <Typography>{formatMessage({id: 'hasMoons'})}: {planet.hasMoons === true ? "Yes" : "No"}</Typography>
-                                <Typography>{formatMessage({id: 'atmosphericComposition'})}: {planet.atmosphericComposition}</Typography>
-                                <Typography>{formatMessage({id: 'planetarySystemName'})}: {planet.planetarySystemResponseDto.name}</Typography>
-                            </CardContent>
-                        </Card>
+                        <Link
+                            to={{pathname: `${pagesURLs[pages.detailEntityPage]}/${planet.id}`}}
+                        >
+                            <Card variant="info">
+                                <CardContent>
+                                    <Typography><strong>{formatMessage({id: 'planetName'})}:</strong> {planet.name}</Typography>
+                                    <Typography><strong>{formatMessage({id: 'hasRings'})}:</strong> {planet.hasRings === true ? "Yes" : "No"}</Typography>
+                                    <Typography><strong>{formatMessage({id: 'hasMoons'})}:</strong> {planet.hasMoons === true ? "Yes" : "No"}</Typography>
+                                    <Typography><strong>{formatMessage({id: 'atmosphericComposition'})}:</strong> {planet.atmosphericComposition}</Typography>
+                                    <Typography><strong>{formatMessage({id: 'planetarySystemName'})}:</strong> {planet.planetarySystemResponseDto.name}</Typography>
+                                </CardContent>
+                            </Card>
+                        </Link>
                         {hoveredPlanetId === planet.id && (
                             <div className={planetListStyles.deleteIconContainer}>
                                 <IconButton
@@ -173,7 +204,6 @@ const PlanetList = () => {
                             </div>
                         )}
                     </li>
-
                 )) : <Card
                     variant="warning"><Typography>{formatMessage({id: 'messageEmptyPlanetList'})}</Typography></Card>}
             </ul>

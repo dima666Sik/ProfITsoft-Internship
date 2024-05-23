@@ -1,46 +1,44 @@
 import {
-    FETCH_PLANETS_LOADING,
-    FETCH_PLANETS_SUCCESS,
-    FETCH_PLANETS_ERROR,
-    DELETE_PLANET_ERROR,
-    DELETE_PLANET_SUCCESS,
     DELETE_PLANET_LOADING,
-    FILTER_PLANETS_ERROR,
-    FILTER_PLANETS_LOADING,
-    FILTER_PLANETS_SUCCESS,
+    DELETE_PLANET_SUCCESS,
+    DELETE_PLANET_ERROR,
+    FETCH_PLANET_ERROR,
+    FETCH_PLANET_SUCCESS,
+    FETCH_PLANET_LOADING,
+    UPDATE_PLANET_ERROR,
+    UPDATE_PLANET_SUCCESS,
+    UPDATE_PLANET_LOADING,
 } from "app/constants/actionTypes";
 
 const initialState = {
-    planets: [],
+    planet: null,
     isLoading: false,
     error: null,
-    selectedPlanet: null,
-    filter: "",
 };
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
-        case FETCH_PLANETS_LOADING:
+        case FETCH_PLANET_LOADING:
             return {
                 ...state,
+                planet: null,
                 isLoading: true,
                 error: null,
             };
-        case FETCH_PLANETS_SUCCESS:
-            console.log(state)
+        case FETCH_PLANET_SUCCESS:
             return {
                 ...state,
-                planets: action.payload,
+                planet: action.payload,
                 isLoading: false,
                 error: null,
             };
-        case FETCH_PLANETS_ERROR:
+        case FETCH_PLANET_ERROR:
             return {
                 ...state,
+                planet: null,
                 isLoading: false,
                 error: action.payload,
             };
-
         case DELETE_PLANET_LOADING:
             return {
                 ...state,
@@ -60,19 +58,23 @@ const reducer = (state = initialState, action) => {
                 isLoading: false,
                 error: action.payload,
             };
-        case FILTER_PLANETS_LOADING:
+        case UPDATE_PLANET_LOADING:
             return {
                 ...state,
                 isLoading: true,
                 error: null,
             };
-        case FILTER_PLANETS_SUCCESS:
+        case UPDATE_PLANET_SUCCESS:
             return {
-                planets: action.payload,
+                ...state,
+                planets: state.planets.map((planet) =>
+                    planet.id === action.payload.id ? action.payload : planet
+                ),
+                selectedPlanet: action.payload,
                 isLoading: false,
                 error: null,
             };
-        case FILTER_PLANETS_ERROR:
+        case UPDATE_PLANET_ERROR:
             return {
                 ...state,
                 isLoading: false,
