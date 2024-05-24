@@ -1,4 +1,5 @@
 {
+  "planetName": "Planet Name",
   "hasRings": "Planet has Rings",
   "hasMoons": "Planet has Moons",
   "atmosphericComposition": "Atmospheric composition consists of",

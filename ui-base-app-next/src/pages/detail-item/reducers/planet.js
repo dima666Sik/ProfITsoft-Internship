@@ -39,25 +39,6 @@ const reducer = (state = initialState, action) => {
                 isLoading: false,
                 error: action.payload,
             };
-        case DELETE_PLANET_LOADING:
-            return {
-                ...state,
-                isLoading: true,
-                error: null,
-            };
-        case DELETE_PLANET_SUCCESS:
-            return {
-                ...state,
-                planets: state.planets.filter(({id}) => id !== action.payload),
-                isLoading: false,
-                error: null,
-            };
-        case DELETE_PLANET_ERROR:
-            return {
-                ...state,
-                isLoading: false,
-                error: action.payload,
-            };
         case UPDATE_PLANET_LOADING:
             return {
                 ...state,
@@ -67,10 +48,7 @@ const reducer = (state = initialState, action) => {
         case UPDATE_PLANET_SUCCESS:
             return {
                 ...state,
-                planets: state.planets.map((planet) =>
-                    planet.id === action.payload.id ? action.payload : planet
-                ),
-                selectedPlanet: action.payload,
+                planet: action.payload,
                 isLoading: false,
                 error: null,
             };

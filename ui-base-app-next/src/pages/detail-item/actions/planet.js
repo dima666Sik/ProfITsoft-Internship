@@ -77,24 +77,6 @@ const fetchPlanetError = (payload) => {
     };
 };
 
-const deletePlanetsLoading = () => {
-    return {
-        type: DELETE_PLANET_LOADING,
-    };
-};
-const deletePlanetsSuccess = (payload) => {
-    return {
-        type: DELETE_PLANET_SUCCESS,
-        payload,
-    };
-};
-const deletePlanetsError = (payload) => {
-    return {
-        type: DELETE_PLANET_ERROR,
-        payload,
-    };
-};
-
 
 const updatePlanetsLoading = () => {
     return {
@@ -134,22 +116,11 @@ const filterPlanetsError = (payload) => {
     };
 };
 
-export const deletePlanet = (id) => async (dispatch) => {
-    try {
-        dispatch(deletePlanetsLoading());
-        // await planetInstance.delete(`/planet/${id}`);
-        dispatch(deletePlanetsSuccess(id));
-    } catch (e) {
-        console.log(e)
-        dispatch(deletePlanetsError(e.message));
-        throw e;
-    }
-};
-
 export const fetchPlanet = (id) => async (dispatch) => {
     try {
         dispatch(fetchPlanetLoading());
         const response = await planetInstance.get(`/planet/${id}`);
+        console.log(response.data)
         dispatch(fetchPlanetSuccess(response.data));
     } catch (e) {
         dispatch(fetchPlanetError(e.message));
@@ -191,10 +162,13 @@ export const addPlanet = (body) => async (dispatch) => {
 export const updatePlanet = (id, body) => async (dispatch) => {
     try {
         dispatch(updatePlanetsLoading());
-        const response = await planetInstance.put(`/planets/${id}`, body);
-        dispatch(updatePlanetsSuccess(response.data));
+        const response = await planetInstance.put(`/planet/${id}`, body);
+        if (response.status === 200) {
+            dispatch(updatePlanetsSuccess(body));
+        }
     } catch (e) {
         dispatch(updatePlanetsError(e.message));
+        throw e;
     }
 };
 
@@ -202,7 +176,7 @@ export const fetchPlanetsFiltered = (filter) => async (dispatch) => {
     try {
         dispatch(fetchPlanetsLoading());
         const response = await planetInstance.get("/planets", {
-            params: { filter },
+            params: {filter},
         });
         dispatch(fetchPlanetsSuccess(response.data));
     } catch (e) {

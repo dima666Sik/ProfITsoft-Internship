@@ -1,4 +1,5 @@
 {
+  "planetName": "Назва планети",
   "hasRings": "Планета має кільця",
   "hasMoons": "На планеті є супутники",
   "atmosphericComposition": "Атмосфера складається з",
