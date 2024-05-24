@@ -85,17 +85,17 @@ export const deletePlanet = (id) => async (dispatch) => {
 export const filterPlanets = (filterValue) => async (dispatch) => {
     try {
         dispatch(filterPlanetsLoading());
-        // const response = await planetInstance.get(`/planet/filter/${filterValue}`);
-        const planets = await planetInstance.get("/planet/all");
-        const response = planets.data.list.slice().sort((a, b) => {
-            if (filterValue === 'ASC') {
-                return a.name.localeCompare(b.name);
-            } else if (filterValue === 'DESC') {
-                return b.name.localeCompare(a.name);
-            }
-            return fetchAllPlanets;
-        });
-        console.log(response)
+        const response = await planetInstance.get(`/planet/filter/${filterValue}`);
+        // const planets = await planetInstance.get("/planet/all");
+        // const response = planets.data.list.slice().sort((a, b) => {
+        //     if (filterValue === 'ASC') {
+        //         return a.name.localeCompare(b.name);
+        //     } else if (filterValue === 'DESC') {
+        //         return b.name.localeCompare(a.name);
+        //     }
+        //     return fetchAllPlanets;
+        // });
+        // console.log(response)
         dispatch(filterPlanetsSuccess(response));
     } catch (e) {
         console.log(e)
