@@ -14,4 +14,5 @@ public interface PlanetService {
     void deletePlanetById(Long planetId);
     PlanetListResponseDto getPlanetPageByPlanetarySystemId(PlanetListRequestDto planetListRequestDto);
     ReportInfo uploadPlanetFromFile(MultipartFile multipartFile);
+    PlanetListResponseDto getAllPlanets();
 }
