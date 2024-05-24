@@ -121,6 +121,10 @@ function App() {
 											path={`${pageURLs[pages.detailEntityPage]}/:planetId`}
 										/>
 										<Route
+											element={<DetailPlanet />}
+											path={`${pageURLs[pages.detailEntityPage]}`}
+										/>
+										<Route
 											element={
 												<MissedPage
 													redirectPage={`${pageURLs[pages.defaultPage]}`}

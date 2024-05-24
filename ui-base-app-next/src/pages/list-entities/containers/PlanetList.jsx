@@ -152,7 +152,6 @@ const PlanetList = () => {
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
     const currentPlanets = planets.slice(indexOfFirstItem, indexOfLastItem);
 
-    console.log(`${pagesURLs[pages.detailEntityPage]}/${1}`)
     return (
         <div>
             <div className={planetListStyles.menuBtn}>
@@ -168,7 +167,13 @@ const PlanetList = () => {
                         <MenuItem value="ASC">ASC</MenuItem>
                     </Select>
                 </FormControl>
-                <Button>{formatMessage({id: 'btnCreatePlanet'})}</Button>
+
+                <Link to={{pathname: `${pagesURLs[pages.detailEntityPage]}`}}>
+                    <Button>
+                        {formatMessage({id: 'btnCreatePlanet'})}
+                    </Button>
+                </Link>
+
             </div>
             <Typography variant="title" color="green">
                 {formatMessage({id: 'title'})}
@@ -186,11 +191,16 @@ const PlanetList = () => {
                         >
                             <Card variant="info">
                                 <CardContent>
-                                    <Typography><strong>{formatMessage({id: 'planetName'})}:</strong> {planet.name}</Typography>
-                                    <Typography><strong>{formatMessage({id: 'hasRings'})}:</strong> {planet.hasRings === true ? "Yes" : "No"}</Typography>
-                                    <Typography><strong>{formatMessage({id: 'hasMoons'})}:</strong> {planet.hasMoons === true ? "Yes" : "No"}</Typography>
-                                    <Typography><strong>{formatMessage({id: 'atmosphericComposition'})}:</strong> {planet.atmosphericComposition}</Typography>
-                                    <Typography><strong>{formatMessage({id: 'planetarySystemName'})}:</strong> {planet.planetarySystemResponseDto.name}</Typography>
+                                    <Typography><strong>{formatMessage({id: 'planetName'})}:</strong> {planet.name}
+                                    </Typography>
+                                    <Typography><strong>{formatMessage({id: 'hasRings'})}:</strong> {planet.hasRings === true ? "Yes" : "No"}
+                                    </Typography>
+                                    <Typography><strong>{formatMessage({id: 'hasMoons'})}:</strong> {planet.hasMoons === true ? "Yes" : "No"}
+                                    </Typography>
+                                    <Typography><strong>{formatMessage({id: 'atmosphericComposition'})}:</strong> {planet.atmosphericComposition}
+                                    </Typography>
+                                    <Typography><strong>{formatMessage({id: 'planetarySystemName'})}:</strong> {planet?.planetarySystemResponseDto?.name || formatMessage({id: 'unknown'})}
+                                    </Typography>
                                 </CardContent>
                             </Card>
                         </Link>

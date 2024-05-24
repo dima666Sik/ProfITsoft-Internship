@@ -2,9 +2,7 @@ import {
     FETCH_PLANETS_LOADING,
     FETCH_PLANETS_SUCCESS,
     FETCH_PLANETS_ERROR,
-    DELETE_PLANET_ERROR,
-    DELETE_PLANET_SUCCESS,
-    DELETE_PLANET_LOADING,
+    CLEAR_STATE,
     ADD_PLANETS_LOADING,
     ADD_PLANETS_ERROR,
     ADD_PLANETS_SUCCESS,
@@ -152,8 +150,10 @@ export const filterPlanets = (filterValue) => async (dispatch) => {
 export const addPlanet = (body) => async (dispatch) => {
     try {
         dispatch(addPlanetsLoading());
-        const response = await planetInstance.post("/planets", body);
-        dispatch(addPlanetsSuccess(response.data));
+        const response = await planetInstance.post("/planet", body);
+        if (response.status === 201) {
+            dispatch(addPlanetsSuccess(body));
+        }
     } catch (e) {
         dispatch(addPlanetsError(e.message));
     }
@@ -194,3 +194,9 @@ export const fetchAllPlanets = () => async (dispatch) => {
         dispatch(fetchPlanetsError(e.message));
     }
 };
+
+export const clearState = () => {
+    return {
+        type: CLEAR_STATE,
+    };
+}

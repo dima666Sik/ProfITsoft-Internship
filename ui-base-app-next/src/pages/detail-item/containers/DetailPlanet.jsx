@@ -8,10 +8,11 @@ import Snackbar from "../../../components/Snackbar";
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect, useState} from "react";
 import EditIcon from "../../../components/icons/Edit";
-import {fetchPlanet, updatePlanet} from "../actions/planet";
-import {useParams} from "react-router-dom";
+import {addPlanet, fetchPlanet, updatePlanet} from "../actions/planet";
+import {useParams, useNavigate} from "react-router-dom";
 import {useIntl} from "react-intl";
 import {createUseStyles} from "react-jss";
+import * as pages from "../../../constants/pages";
 
 const getPlanetStyles = createUseStyles(() => ({
     item: {
@@ -21,25 +22,42 @@ const getPlanetStyles = createUseStyles(() => ({
         position: 'absolute',
         top: 8,
         right: 8,
+    },
+    buttonContainer: {
+        marginTop: 20,
+        display: 'flex',
+        justifyContent: 'space-between',
     }
 }));
 const DetailPlanet = () => {
     const {formatMessage} = useIntl();
-
+    const navigate = useNavigate();
     const {planetId} = useParams();
     const dispatch = useDispatch();
     const planet = useSelector(state => state.planet.planet);
-    const [isEditing, setIsEditing] = useState(false);
-    const [planetData, setPlanetData] = useState(planet);
+
+    const initialPlanetData = {
+        name: "",
+        atmosphericComposition: "",
+        diameterDto: {value: "", unit: "KILOMETER"},
+        massDto: {value: "", unit: "KILOGRAM"},
+        hasMoons: false,
+        hasRings: false,
+        planetarySystemResponseDto: {name: ""}
+    };
+
+    const [isEditing, setIsEditing] = useState(!planetId);
+    const [planetData, setPlanetData] = useState(planetId ? planet : initialPlanetData);
     const [showSnackbar, setShowSnackbar] = useState(false);
     const [snackbarMessage, setSnackbarMessage] = useState('');
     const [errors, setErrors] = useState({});
     const [snackbarSeverity, setSnackbarSeverity] = useState("success");
-
     const planetStyles = getPlanetStyles();
 
     useEffect(() => {
-        dispatch(fetchPlanet(planetId));
+        if (planetId) {
+            dispatch(fetchPlanet(planetId));
+        }
     }, [dispatch, planetId]);
 
     const handleEditToggle = () => {
@@ -51,11 +69,10 @@ const DetailPlanet = () => {
 
     const handleChange = (e) => {
         const {name, value} = e.target;
-
         // Convert the value based on its expected type
         let newValue;
-        if (name.includes("massDto") || name.includes("diameterDto")) {
-            newValue = parseFloat(value); // Convert to number
+        if (name === "massDto" || name === "diameterDto") {
+            newValue = parseFloat(value);
         } else {
             newValue = value; // Default to string
         }
@@ -77,8 +94,9 @@ const DetailPlanet = () => {
                 tempData = tempData[key];
             }
         });
-
+        console.log("u1", updatedData)
         setPlanetData(updatedData);
+        console.log("u2", updatedData)
     };
 
 
@@ -98,8 +116,6 @@ const DetailPlanet = () => {
             tempErrors.diameter = "Diameter must be a number";
         }
 
-        console.log(planetData)
-        console.log(!planetData.massDto || !planetData.massDto.value)
         // Mass validation
         if (!planetData.massDto || !planetData.massDto.value) {
             tempErrors.mass = "Mass is required";
@@ -108,10 +124,10 @@ const DetailPlanet = () => {
         }
 
         // Has Moons validation
-        if (planetData.hasMoons==='') tempErrors.hasMoons = "Has Moons is required";
+        if (planetData.hasMoons === '') tempErrors.hasMoons = "Has Moons is required";
 
         // Has Rings validation
-        if (planetData.hasRings==='') tempErrors.hasRings = "Has Rings is required";
+        if (planetData.hasRings === '') tempErrors.hasRings = "Has Rings is required";
 
         // Planetary System Name validation
         if (!planetData.planetarySystemResponseDto || !planetData.planetarySystemResponseDto.name) {
@@ -133,30 +149,49 @@ const DetailPlanet = () => {
 
     const handleSave = () => {
         if (validate()) {
-            dispatch(updatePlanet(planetData.id, planetData))
-                .then(() => {
-                    setIsEditing(false);
-                    setShowSnackbar(true);
-                    setSnackbarSeverity("success");
-                    setSnackbarMessage('Planet updated successfully');
-                })
-                .catch(() => {
-                    setShowSnackbar(true);
-                    setSnackbarMessage('Error updating planet');
-                    setSnackbarSeverity("error");
-                });
+            if (planetId) {
+                dispatch(updatePlanet(planetData.id, planetData))
+                    .then(() => {
+                        setIsEditing(false);
+                        setShowSnackbar(true);
+                        setSnackbarSeverity("success");
+                        setSnackbarMessage('Planet updated successfully');
+                    })
+                    .catch(() => {
+                        setShowSnackbar(true);
+                        setSnackbarMessage('Error updating planet');
+                        setSnackbarSeverity("error");
+                    });
+            } else {
+                dispatch(addPlanet(planetData))
+                    .then(() => {
+                        navigate(`../${pages.listEntitiesPage}`); // Redirect to the list after creation
+                        setShowSnackbar(true);
+                        setSnackbarSeverity("success");
+                        setSnackbarMessage('Planet created successfully');
+                    })
+                    .catch(() => {
+                        setShowSnackbar(true);
+                        setSnackbarMessage('Error creating planet');
+                        setSnackbarSeverity("error");
+                    });
+            }
         }
     };
 
     const handleCancel = () => {
-        setIsEditing(false);
-        setPlanetData(planet);
+        if (planetId) {
+            setIsEditing(false);
+            setPlanetData(planet);
+        } else navigate(`../${pages.listEntitiesPage}`);
     };
+
     console.log(planet)
+
     return (
         <Card>
             <CardContent>
-                {planet && (
+                {(planet || !planetId) && (
                     <div className={planetStyles.item}>
                         <div className={planetStyles.iconContainer}>
                             <IconButton onClick={handleEditToggle}>
@@ -240,10 +275,10 @@ const DetailPlanet = () => {
                                             <strong>{formatMessage({id: 'atmosphericComposition'})}:</strong> {planet.atmosphericComposition}
                                         </li>
                                         <li>
-                                            <strong>{formatMessage({id: 'diameter'})}:</strong> {planet.diameterDto.value} {planet.diameterDto.unit}
+                                            <strong>{formatMessage({id: 'diameter'})}:</strong> {planet?.diameterDto?.value || formatMessage({id: 'unknown'})} {planet?.diameterDto?.unit || formatMessage({id: 'unknown'})}
                                         </li>
                                         <li>
-                                            <strong>{formatMessage({id: 'mass'})}:</strong> {planet.massDto.value} {planet.massDto.unit}
+                                            <strong>{formatMessage({id: 'mass'})}:</strong> {planet?.massDto?.value || formatMessage({id: 'unknown'})} {planet?.massDto?.unit || formatMessage({id: 'unknown'})}
                                         </li>
                                         <li>
                                             <strong>{formatMessage({id: 'hasMoons'})}:</strong> {planet.hasMoons ? "Yes" : "No"}
@@ -252,7 +287,7 @@ const DetailPlanet = () => {
                                             <strong>{formatMessage({id: 'hasRings'})}:</strong> {planet.hasRings ? "Yes" : "No"}
                                         </li>
                                         <li>
-                                            <strong>{formatMessage({id: 'planetarySystemName'})}:</strong> {planet.planetarySystemResponseDto.name}
+                                            <strong>{formatMessage({id: 'planetarySystemName'})}:</strong> {planet?.planetarySystemResponseDto?.name || formatMessage({id: 'unknown'})}
                                         </li>
                                     </ul>
                                 </div>
@@ -260,8 +295,8 @@ const DetailPlanet = () => {
                         </Typography>
 
                         {isEditing && (
-                            <div>
-                                <Button onClick={handleSave}>Save</Button>
+                            <div className={planetStyles.buttonContainer}>
+                                <Button onClick={handleSave}>{planetId ? 'Save' : 'Create'}</Button>
                                 <Button onClick={handleCancel}>Cancel</Button>
                             </div>
                         )}

@@ -1,7 +1,5 @@
 import {
-    DELETE_PLANET_LOADING,
-    DELETE_PLANET_SUCCESS,
-    DELETE_PLANET_ERROR,
+    CLEAR_STATE,
     FETCH_PLANET_ERROR,
     FETCH_PLANET_SUCCESS,
     FETCH_PLANET_LOADING,
@@ -57,6 +55,13 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 isLoading: false,
                 error: action.payload,
+            };
+        case CLEAR_STATE:
+            return {
+                ...state,
+                planet: null,
+                isLoading: false,
+                error: null,
             };
         default:
             return state;

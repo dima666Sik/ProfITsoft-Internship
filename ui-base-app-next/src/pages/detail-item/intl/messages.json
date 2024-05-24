@@ -5,5 +5,6 @@
   "atmosphericComposition": "Atmospheric composition consists of",
   "planetarySystemName": "Planetary System Name",
   "mass": "Mass",
-  "diameter": "Diameter"
+  "diameter": "Diameter",
+  "unknown": "Unknown"
 }
