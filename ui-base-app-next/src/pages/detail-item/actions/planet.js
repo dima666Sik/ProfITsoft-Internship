@@ -12,9 +12,6 @@ import {
     UPDATE_PLANET_ERROR,
     UPDATE_PLANET_SUCCESS,
     UPDATE_PLANET_LOADING,
-    FILTER_PLANETS_ERROR,
-    FILTER_PLANETS_LOADING,
-    FILTER_PLANETS_SUCCESS,
 } from "app/constants/actionTypes";
 import axios from "axios";
 
@@ -94,26 +91,6 @@ const updatePlanetsError = (payload) => {
     };
 };
 
-const filterPlanetsLoading = () => {
-    return {
-        type: FILTER_PLANETS_LOADING,
-    };
-};
-
-const filterPlanetsSuccess = (payload) => {
-    return {
-        type: FILTER_PLANETS_SUCCESS,
-        payload,
-    };
-};
-
-const filterPlanetsError = (payload) => {
-    return {
-        type: FILTER_PLANETS_ERROR,
-        payload,
-    };
-};
-
 export const fetchPlanet = (id) => async (dispatch) => {
     try {
         dispatch(fetchPlanetLoading());
@@ -124,28 +101,6 @@ export const fetchPlanet = (id) => async (dispatch) => {
         dispatch(fetchPlanetError(e.message));
     }
 };
-
-export const filterPlanets = (filterValue) => async (dispatch) => {
-    try {
-        dispatch(filterPlanetsLoading());
-        // const response = await planetInstance.get(`/planet/filter/${filterValue}`);
-        const planets = await planetInstance.get("/planet/all");
-        const response = planets.data.list.slice().sort((a, b) => {
-            if (filterValue === 'ASC') {
-                return a.name.localeCompare(b.name);
-            } else if (filterValue === 'DESC') {
-                return b.name.localeCompare(a.name);
-            }
-            return fetchAllPlanets;
-        });
-        console.log(response)
-        dispatch(filterPlanetsSuccess(response));
-    } catch (e) {
-        console.log(e)
-        dispatch(filterPlanetsError(e.message));
-        throw e;
-    }
-}
 
 export const addPlanet = (body) => async (dispatch) => {
     try {
@@ -169,18 +124,6 @@ export const updatePlanet = (id, body) => async (dispatch) => {
     } catch (e) {
         dispatch(updatePlanetsError(e.message));
         throw e;
-    }
-};
-
-export const fetchPlanetsFiltered = (filter) => async (dispatch) => {
-    try {
-        dispatch(fetchPlanetsLoading());
-        const response = await planetInstance.get("/planets", {
-            params: {filter},
-        });
-        dispatch(fetchPlanetsSuccess(response.data));
-    } catch (e) {
-        dispatch(dispatch(fetchPlanetsError(e.message)));
     }
 };
 
