@@ -1,55 +1,34 @@
 import {
-    FETCH_PLANETS_LOADING,
-    FETCH_PLANETS_SUCCESS,
-    FETCH_PLANETS_ERROR,
-    CLEAR_STATE,
-    ADD_PLANETS_LOADING,
-    ADD_PLANETS_ERROR,
-    ADD_PLANETS_SUCCESS,
     FETCH_PLANET_ERROR,
     FETCH_PLANET_LOADING,
     FETCH_PLANET_SUCCESS,
     UPDATE_PLANET_ERROR,
     UPDATE_PLANET_SUCCESS,
     UPDATE_PLANET_LOADING,
+    ADD_PLANET_LOADING,
+    ADD_PLANET_SUCCESS,
+    ADD_PLANET_ERROR,
 } from "app/constants/actionTypes";
 import axios from "axios";
+import mockPlanets from "../../list-entities/actions/mock-planets.json";
 
 const planetInstance = axios.create({
     baseURL: "http://localhost:8080/api",
 });
-const addPlanetsLoading = () => {
+const addPlanetLoading = () => {
     return {
-        type: ADD_PLANETS_LOADING,
+        type: ADD_PLANET_LOADING,
     };
 };
-const addPlanetsSuccess = (payload) => {
+const addPlanetSuccess = (payload) => {
     return {
-        type: ADD_PLANETS_SUCCESS,
+        type: ADD_PLANET_SUCCESS,
         payload,
     };
 };
-const addPlanetsError = (payload) => {
+const addPlanetError = (payload) => {
     return {
-        type: ADD_PLANETS_ERROR,
-        payload,
-    };
-};
-//fetch planets
-const fetchPlanetsLoading = () => {
-    return {
-        type: FETCH_PLANETS_LOADING,
-    };
-};
-const fetchPlanetsSuccess = (payload) => {
-    return {
-        type: FETCH_PLANETS_SUCCESS,
-        payload,
-    };
-};
-const fetchPlanetsError = (payload) => {
-    return {
-        type: FETCH_PLANETS_ERROR,
+        type: ADD_PLANET_ERROR,
         payload,
     };
 };
@@ -73,18 +52,18 @@ const fetchPlanetError = (payload) => {
 };
 
 
-const updatePlanetsLoading = () => {
+const updatePlanetLoading = () => {
     return {
         type: UPDATE_PLANET_LOADING,
     };
 };
-const updatePlanetsSuccess = (payload) => {
+const updatePlanetSuccess = (payload) => {
     return {
         type: UPDATE_PLANET_SUCCESS,
         payload,
     };
 };
-const updatePlanetsError = (payload) => {
+const updatePlanetError = (payload) => {
     return {
         type: UPDATE_PLANET_ERROR,
         payload,
@@ -94,9 +73,14 @@ const updatePlanetsError = (payload) => {
 export const fetchPlanet = (id) => async (dispatch) => {
     try {
         dispatch(fetchPlanetLoading());
-        const response = await planetInstance.get(`/planet/${id}`);
-        console.log(response.data)
-        dispatch(fetchPlanetSuccess(response.data));
+        // const response = await planetInstance.get(`/planet/${id}`);
+        // console.log(response.data)
+        // dispatch(fetchPlanetSuccess(response.data));
+
+        // Mock
+        const response = mockPlanets.find((item) => item.id === Number(id));
+        console.log(id,response, mockPlanets)
+        dispatch(fetchPlanetSuccess(response));
     } catch (e) {
         dispatch(fetchPlanetError(e.message));
     }
@@ -104,42 +88,31 @@ export const fetchPlanet = (id) => async (dispatch) => {
 
 export const addPlanet = (body) => async (dispatch) => {
     try {
-        dispatch(addPlanetsLoading());
-        const response = await planetInstance.post("/planet", body);
-        if (response.status === 201) {
-            dispatch(addPlanetsSuccess(body));
-        }
+        dispatch(addPlanetLoading());
+
+        // const response = await planetInstance.post("/planet", body);
+        // if (response.status === 201) {
+        //     dispatch(addPlanetsSuccess(body));
+        // }
+
+        // Mock
+        dispatch(addPlanetSuccess(body));
     } catch (e) {
-        dispatch(addPlanetsError(e.message));
+        dispatch(addPlanetError(e.message));
     }
 };
 
 export const updatePlanet = (id, body) => async (dispatch) => {
     try {
-        dispatch(updatePlanetsLoading());
-        const response = await planetInstance.put(`/planet/${id}`, body);
-        if (response.status === 200) {
-            dispatch(updatePlanetsSuccess(body));
-        }
+        dispatch(updatePlanetLoading());
+        // const response = await planetInstance.put(`/planet/${id}`, body);
+        // if (response.status === 200) {
+        //     dispatch(updatePlanetsSuccess(body));
+        // }
+        // Mock
+        dispatch(updatePlanetSuccess(body));
     } catch (e) {
-        dispatch(updatePlanetsError(e.message));
+        dispatch(updatePlanetError(e.message));
         throw e;
     }
 };
-
-export const fetchAllPlanets = () => async (dispatch) => {
-    try {
-        dispatch(fetchPlanetsLoading());
-        const response = await planetInstance.get("/planet/all");
-        console.log(response.data)
-        dispatch(fetchPlanetsSuccess(response.data.list));
-    } catch (e) {
-        dispatch(fetchPlanetsError(e.message));
-    }
-};
-
-export const clearState = () => {
-    return {
-        type: CLEAR_STATE,
-    };
-}

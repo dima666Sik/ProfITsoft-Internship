@@ -1,7 +1,7 @@
 import {Provider} from 'react-redux';
 import React, {useMemo} from 'react';
 
-import rootReducer from './reducers';
+import rootReducer from '../list-entities/reducers';
 import IntlProvider from "../../misc/providers/IntlProvider";
 import useLocationSearch from "../../misc/hooks/useLocationSearch";
 import getMessages from "./intl";

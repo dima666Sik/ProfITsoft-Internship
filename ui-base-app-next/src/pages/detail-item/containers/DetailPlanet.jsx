@@ -9,6 +9,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {useEffect, useState} from "react";
 import EditIcon from "../../../components/icons/Edit";
 import {addPlanet, fetchPlanet, updatePlanet} from "../actions/planet";
+// import {addPlanet, fetchPlanet, updatePlanet} from "../../list-entities/actions/planet";
 import {useParams, useNavigate} from "react-router-dom";
 import {useIntl} from "react-intl";
 import {createUseStyles} from "react-jss";
@@ -34,7 +35,11 @@ const DetailPlanet = () => {
     const navigate = useNavigate();
     const {planetId} = useParams();
     const dispatch = useDispatch();
-    const planet = useSelector(state => state.planet.planet);
+
+    const state = useSelector(state => state);
+    console.log(state)
+
+    const planet = useSelector(state => state.planets.planet);
 
     const initialPlanetData = {
         name: "",

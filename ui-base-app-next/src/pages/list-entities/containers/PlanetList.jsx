@@ -64,9 +64,12 @@ const PlanetList = () => {
     const [currentPage, setCurrentPage] = useState(savedPage);
     const [filter, setFilter] = useState(savedFilter);
 
+    const state = useSelector(state => state);
+    console.log(state)
 
     useEffect(() => {
-        if (savedFilter !== 'Default') {
+        console.log(filter, savedFilter, "savedFilter !== 'Default'", savedFilter !== 'Default')
+        if (savedFilter !== "Default") {
             handleFilterChange(filter);
         } else {
             dispatch(fetchAllPlanets())
@@ -131,12 +134,12 @@ const PlanetList = () => {
 
     const handleFilterChange = (value) => {
         setFilter(value);
+        localStorage.setItem('filterValue', value);
         dispatch(filterPlanets(value))
             .then(() => {
                 setSnackbarMessage(formatMessage({id: 'filterSuccess'}));
                 setSnackbarSeverity("success");
                 setSnackbarOpen(true);
-                localStorage.setItem('filterValue', value);
             })
             .catch((e) => {
                 setSnackbarMessage(formatMessage({id: 'filterError'}));

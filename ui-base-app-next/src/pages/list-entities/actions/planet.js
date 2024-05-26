@@ -10,6 +10,7 @@ import {
     FILTER_PLANETS_SUCCESS,
 } from "app/constants/actionTypes";
 import axios from "axios";
+import mockPlanets from "./mock-planets.json";
 
 const planetInstance = axios.create({
     baseURL: "http://localhost:8080/api",
@@ -73,7 +74,8 @@ const filterPlanetsError = (payload) => {
 export const deletePlanet = (id) => async (dispatch) => {
     try {
         dispatch(deletePlanetsLoading());
-        await planetInstance.delete(`/planet/${id}`);
+        // await planetInstance.delete(`/planet/${id}`);
+
         dispatch(deletePlanetsSuccess(id));
     } catch (e) {
         console.log(e)
@@ -85,18 +87,10 @@ export const deletePlanet = (id) => async (dispatch) => {
 export const filterPlanets = (filterValue) => async (dispatch) => {
     try {
         dispatch(filterPlanetsLoading());
-        const response = await planetInstance.get(`/planet/filter/${filterValue}`);
-        // const planets = await planetInstance.get("/planet/all");
-        // const response = planets.data.list.slice().sort((a, b) => {
-        //     if (filterValue === 'ASC') {
-        //         return a.name.localeCompare(b.name);
-        //     } else if (filterValue === 'DESC') {
-        //         return b.name.localeCompare(a.name);
-        //     }
-        //     return fetchAllPlanets;
-        // });
+        // Mock filter
+        // const response = await planetInstance.get(`/planet/filter/${filterValue}`);
         // console.log(response)
-        dispatch(filterPlanetsSuccess(response));
+        dispatch(filterPlanetsSuccess(filterValue));
     } catch (e) {
         console.log(e)
         dispatch(filterPlanetsError(e.message));
@@ -107,10 +101,15 @@ export const filterPlanets = (filterValue) => async (dispatch) => {
 export const fetchAllPlanets = () => async (dispatch) => {
     try {
         dispatch(fetchPlanetsLoading());
-        const response = await planetInstance.get("/planet/all");
-        console.log(response.data)
-        dispatch(fetchPlanetsSuccess(response.data.list));
+        // const response = await planetInstance.get("/planet/all");
+
+        // Mock list planets
+        dispatch(fetchPlanetsSuccess());
+
+        // dispatch(fetchPlanetsSuccess(response.data.list));
     } catch (e) {
         dispatch(fetchPlanetsError(e.message));
     }
 };
+
+
