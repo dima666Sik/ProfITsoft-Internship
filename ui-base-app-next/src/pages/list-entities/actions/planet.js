@@ -89,6 +89,13 @@ export const filterPlanets = (filterValue) => async (dispatch) => {
         dispatch(filterPlanetsLoading());
         // Mock filter
         // const response = await planetInstance.get(`/planet/filter/${filterValue}`);
+        // const response = mockPlanets.slice().sort((a, b) => {
+        //     if (filterValue === 'ASC') {
+        //         return a.name.localeCompare(b.name);
+        //     } else if (filterValue === 'DESC') {
+        //         return b.name.localeCompare(a.name);
+        //     }
+        // });
         // console.log(response)
         dispatch(filterPlanetsSuccess(filterValue));
     } catch (e) {

@@ -79,7 +79,7 @@ export const fetchPlanet = (id) => async (dispatch) => {
 
         // Mock
         const response = mockPlanets.find((item) => item.id === Number(id));
-        console.log(id,response, mockPlanets)
+        console.log(id, response, mockPlanets)
         dispatch(fetchPlanetSuccess(response));
     } catch (e) {
         dispatch(fetchPlanetError(e.message));
@@ -96,6 +96,7 @@ export const addPlanet = (body) => async (dispatch) => {
         // }
 
         // Mock
+        body.id = mockPlanets.length + 1;
         dispatch(addPlanetSuccess(body));
     } catch (e) {
         dispatch(addPlanetError(e.message));

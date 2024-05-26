@@ -42,6 +42,9 @@ const getPlanetListStyles = createUseStyles(() => ({
     }
 }));
 const PlanetList = () => {
+    const state = useSelector(state => state);
+    console.log(state)
+
     const {formatMessage} = useIntl();
     const dispatch = useDispatch();
     const planets = useSelector((state) => state.planets.planets);
@@ -64,11 +67,8 @@ const PlanetList = () => {
     const [currentPage, setCurrentPage] = useState(savedPage);
     const [filter, setFilter] = useState(savedFilter);
 
-    const state = useSelector(state => state);
-    console.log(state)
 
     useEffect(() => {
-        console.log(filter, savedFilter, "savedFilter !== 'Default'", savedFilter !== 'Default')
         if (savedFilter !== "Default") {
             handleFilterChange(filter);
         } else {

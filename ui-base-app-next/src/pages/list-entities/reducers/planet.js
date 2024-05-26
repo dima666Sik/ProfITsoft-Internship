@@ -39,7 +39,7 @@ const reducer = (state = initialState, action) => {
             console.log(state)
             return {
                 ...state,
-                planets: action.payload,
+                planets: action.payload ? state.planets : mockPlanets,
                 isLoading: false,
                 error: null,
             };
@@ -83,8 +83,8 @@ const reducer = (state = initialState, action) => {
                     } else if (action.payload === 'DESC') {
                         return b.name.localeCompare(a.name);
                     }
+                    return 0;
                 }),
-                // planets: action.payload,
                 isLoading: false,
                 error: null,
             };
