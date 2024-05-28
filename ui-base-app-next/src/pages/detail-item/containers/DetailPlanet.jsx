@@ -9,6 +9,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {useEffect, useState} from "react";
 import EditIcon from "../../../components/icons/Edit";
 import {addPlanet, fetchPlanet, updatePlanet} from "../actions/planet";
+import useMockManager from '../../../misc/hooks/useMockManager';
 // import {addPlanet, fetchPlanet, updatePlanet} from "../../list-entities/actions/planet";
 import {useParams, useNavigate} from "react-router-dom";
 import {useIntl} from "react-intl";
@@ -31,6 +32,7 @@ const getPlanetStyles = createUseStyles(() => ({
     }
 }));
 const DetailPlanet = () => {
+    const [mockManager, setMockManager] = useMockManager(false);
     const {formatMessage} = useIntl();
     const navigate = useNavigate();
     const {planetId} = useParams();
@@ -66,6 +68,7 @@ const DetailPlanet = () => {
     }, [dispatch, planetId]);
 
     const handleEditToggle = () => {
+        setMockManager(true);
         setIsEditing(!isEditing);
         if (!isEditing) {
             setPlanetData(planet);
@@ -182,6 +185,7 @@ const DetailPlanet = () => {
                     });
             }
         }
+        setMockManager(true);
     };
 
     const handleCancel = () => {

@@ -23,4 +23,5 @@ server:
 
 client:
   url: http://localhost:3050
-
+  space-missions:
+    url: http://localhost:8888
