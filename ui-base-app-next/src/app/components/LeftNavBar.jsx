@@ -8,7 +8,7 @@ import IconMenu from 'components/icons/Menu';
 import Link from 'components/Link';
 import MenuItem from 'components/MenuItem';
 import pagesURLs from 'constants/pagesURLs';
-import React, {useMemo, useState} from 'react';
+import React, { useMemo, useState } from 'react';
 import SwipeableDrawer from 'components/SwipeableDrawer';
 import Typography from 'components/Typography';
 import useAccessValidate from 'misc/hooks/useAccessValidate';

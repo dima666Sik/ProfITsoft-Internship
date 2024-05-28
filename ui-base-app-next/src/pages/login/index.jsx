@@ -1,3 +1,4 @@
+
 import React, { useMemo } from "react";
 import IntlProvider from "misc/providers/IntlProvider";
 import useLocationSearch from "misc/hooks/useLocationSearch";
