@@ -31,7 +31,7 @@ const TextField = ({
   onChange,
   onSelect,
   required = false,
-  value,
+  value, name
 }) => {
   const { theme } = useTheme();
   const [ state, setState ] = useState({
@@ -51,7 +51,7 @@ const TextField = ({
   }, [isError, isEmptyValue, theme, state.isFocused]);
 
   return (
-    <TextFieldMui
+    <TextFieldMui name={name}
       autoFocus={autoFocus}
       disabled={disabled}
       error={isError}

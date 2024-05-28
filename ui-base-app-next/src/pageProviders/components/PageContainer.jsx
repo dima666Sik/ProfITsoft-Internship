@@ -9,7 +9,7 @@ const getClasses = createUseStyles((theme) => ({
   },
   container: {
     background: theme.pageContainer.color.background,
-    display: 'flex',
+    // display: 'flex',
     height: '100%',
     overflowY: 'auto',
   },

@@ -202,6 +202,18 @@ public class PlanetServiceImpl implements PlanetService {
 
     }
 
+    @Override
+    public PlanetListResponseDto getAllPlanets() {
+        Pageable pageable = PageRequest.of(0, 100);
+        Page<Planet> planetListPage = planetRepository.findAll(pageable);
+
+        return PlanetListResponseDto.builder()
+                                    .planetResponseDtoPage(planetListPage.map(PlanetMapper::planetIntoPlanetResponseDto)
+                                                                         .toList())
+                                    .totalPages(planetListPage.getTotalPages())
+                                    .build();
+    }
+
     private void handlePlanetSave(Planet planet, ReportInfo reportInfo) {
         try {
             planetRepository.save(planet);

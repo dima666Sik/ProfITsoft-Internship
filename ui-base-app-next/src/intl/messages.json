@@ -4,6 +4,7 @@
   "page.default": "Home",
   "page.login": "Login",
   "page.secret": "Secret Page",
+  "page.list-entities": "List of Planets",
   "signIn": "Sign In",
   "signOut": "Sign Out"
 }

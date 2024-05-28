@@ -61,6 +61,12 @@ public class PlanetController {
                                  .build();
     }
 
+    @GetMapping("/all")
+    @ResponseStatus(HttpStatus.OK)
+    public PlanetListResponseDto getAllPlanets() {
+        return planetService.getAllPlanets();
+    }
+
     @PostMapping("_list")
     @ResponseStatus(HttpStatus.OK)
     public PlanetListResponseDto getPlanetPageByPlanetarySystemId(@Valid @RequestBody PlanetListRequestDto planetListRequestDto) {

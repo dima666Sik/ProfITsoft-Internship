@@ -1,0 +1,19 @@
+{
+  "title": "Planet list",
+  "messageEmptyPlanetList": "The planet list is empty!",
+  "planetName": "Planet Name",
+  "hasRings": "Planet has Rings",
+  "hasMoons": "Planet has Moons",
+  "atmosphericComposition": "Atmospheric composition consists of",
+  "planetarySystemName": "Planetary System Name",
+  "fetchAllPlanetError": "Fetch all planet with error",
+  "fetchAllPlanetSuccess": "Fetch all planet was successful",
+  "deleteSuccess": "Delete planet successfully",
+  "deleteError": "Delete planet failed",
+  "btnFilter": "Filter",
+  "btnCreatePlanet": "Add new planet",
+  "loading": "Loading...",
+  "filterError": "Error processing filter planets",
+  "filterSuccess": "Success processing filter planet",
+  "unknown": "Unknown"
+}
