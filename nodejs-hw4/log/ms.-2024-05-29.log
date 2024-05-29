@@ -29,3 +29,4 @@
     at Generator.next (<anonymous>)
     at fulfilled (D:\GitProjects\PetProjects\ProfITsoft-Internship\nodejs-hw4\dist\services\spacemissions\index.js:5:58)
     at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+[2024-05-29T12:12:04.107] [INFO] default - Example app listening on port localhost:8888
