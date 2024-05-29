@@ -62,7 +62,7 @@ describe('Space Missions Service', () => {
             limit: () => Promise.resolve(mockSpaceMissions),
           }),
         }),
-      } as any);
+      } as never);
 
       const result = await getSpaceMissions(spaceMissionPaginationDto);
 
