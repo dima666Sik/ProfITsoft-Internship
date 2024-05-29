@@ -20,6 +20,7 @@ import InputLabel from "../../../components/InputLabel";
 import pagesURLs from 'constants/pagesURLs';
 import Link from "../../../components/Link";
 import * as pages from "../../../constants/pages";
+import useMockManager from '../../../misc/hooks/useMockManager';
 
 const getPlanetListStyles = createUseStyles(() => ({
     ulPlanetList: {
@@ -42,6 +43,7 @@ const getPlanetListStyles = createUseStyles(() => ({
     }
 }));
 const PlanetList = () => {
+    const [mockManager, setMockManager] = useMockManager(false);
     const state = useSelector(state => state);
     console.log(state)
 
@@ -71,8 +73,9 @@ const PlanetList = () => {
     useEffect(() => {
         if (savedFilter !== "Default") {
             handleFilterChange(filter);
+            setMockManager(false);
         } else {
-            dispatch(fetchAllPlanets())
+            dispatch(fetchAllPlanets(mockManager))
                 .then(() => {
                     setSnackbarMessage(formatMessage({id: 'fetchAllPlanetSuccess'}));
                     setSnackbarSeverity("success");
@@ -88,6 +91,7 @@ const PlanetList = () => {
                     setNamePrimaryBtn("Close");
                     setTitleDialog("Fetch error info dialog")
                 });
+            setMockManager(false);
         }
     }, [dispatch, filter]);
 

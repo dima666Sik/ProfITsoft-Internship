@@ -1,5 +1,4 @@
 import axios from 'axios';
-import mongoose from 'mongoose';
 import SpaceMissions, {ISpaceMission} from 'src/model/spaceMissions';
 import {SpaceMissionSaveDto} from 'src/dto/spacemissions/spaceMissionSaveDto';
 import {SpaceMissionPaginationDto} from 'src/dto/spacemissions/spaceMissionPaginationDto';
@@ -59,9 +58,6 @@ const toInfoDto = (spaceMission: ISpaceMission): SpaceMissionInfoDto => {
 export const validateSpaceMission = async (spaceMissionDto: SpaceMissionSaveDto) => {
     const id = spaceMissionDto.planetId;
     if (id) {
-        if (!mongoose.Types.ObjectId.isValid(id)) {
-            throw new Error(`Planet with id ${id} is not a valid ObjectId`);
-        }
         try {
             const response = await axios.get(`http://localhost:8080/api/planet/${id}`);
             if (response.status !== 200) {
@@ -73,9 +69,14 @@ export const validateSpaceMission = async (spaceMissionDto: SpaceMissionSaveDto)
     }
     if (
         spaceMissionDto.dateStartMission &&
-        spaceMissionDto.dateEndMission &&
-        spaceMissionDto.dateStartMission.getTime() >= spaceMissionDto.dateEndMission.getTime()
+        spaceMissionDto.dateEndMission
     ) {
-        throw new Error('dateStartMission should be before dateEndMission');
+        const startDate = new Date(spaceMissionDto.dateStartMission);
+        const endDate = new Date(spaceMissionDto.dateEndMission);
+
+        if (startDate.getTime() >= endDate.getTime()) {
+            throw new Error('dateStartMission should be before dateEndMission');
+        }
     }
+
 };

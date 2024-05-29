@@ -11,6 +11,8 @@ import org.springframework.web.filter.CorsFilter;
 public class CorsConfig {
     @Value("${client.url}")
     private String clientUrl;
+    @Value("${client.space-missions.url}")
+    private String clientUrlSpaceMission;
 
     @Bean
     public CorsFilter corsFilter() {
@@ -18,6 +20,7 @@ public class CorsConfig {
         final CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true);
         config.addAllowedOrigin(clientUrl); // allowed domain
+        config.addAllowedOrigin(clientUrlSpaceMission); // allowed domain
         config.addAllowedHeader("Authorization");
         config.addAllowedHeader("Content-Type");
         config.addAllowedMethod("*");

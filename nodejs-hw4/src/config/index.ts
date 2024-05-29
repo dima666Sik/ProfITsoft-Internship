@@ -3,7 +3,7 @@ const config = {
     server: {
       prod: {
         host: 'consul',
-        port: '8500',
+        port: '8501',
       },
       dev: {
         host: 'localhost',
