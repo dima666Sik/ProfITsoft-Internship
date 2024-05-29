@@ -6,7 +6,7 @@
   "scripts": {
     "devel": "set NODE_ENV=dev && nodemon --exec ts-node -r tsconfig-paths/register ./src/index.ts",
     "start": "npm run build && node ./dist/index.js",
-    "build": "tsc.cmd",
+    "build": "npx tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "_moduleAliases": {

@@ -22,12 +22,8 @@ R
 "src/routers/spacemissions/index.ts,0\a\0a4b14ac6051a67596f96e9db4377c1c6dd3f158
 D
 src/routers/index.ts,7\f\7f51ce766cfa3db8ec1b60abe27c7fcd5c645def
-K
-src/services/group/index.ts,e\e\ee46905138d14a4bbd265d1eda2371407a7cbdc2
 S
 #src/services/spacemissions/index.ts,7\a\7a105e2475760a3ea740c5d3d61e9e9406bfc6d7
-D
-src/model/student.ts,0\3\03a6c23b5e834d2f3bd07e58b6a8306462f9e577
 J
 src/model/spaceMissions.ts,3\3\336c458bac91bcf8886f5cad11c436b709a9197f
 Y
@@ -38,8 +34,6 @@ V
 ,src/dto/spacemissions/spaceMissionSaveDto.ts,d\b\dba5d53cef99880fd4cedffdc7beab5df201c72d
 \
 ,src/dto/spacemissions/spaceMissionInfoDto.ts,a\2\a2b82bca1d15dca8ca0c500aa44fdde2cc2e5653
-_
-/src/dto/spacemissions/spaceMissionPaginationDto,2\c\2cd16bd10c180eb379cd662d785b13d21f6200d2
 b
 2src/dto/spacemissions/spaceMissionPaginationDto.ts,6\f\6fd2b1c9ee68e246f2fe005db599a6737660c53a
 _
@@ -68,3 +62,5 @@ B
 :
 
 Dockerfile,6\6\6651ddff6eb82c840ced7c1dddee15c6e1913dd4
+F
+log/ms.-2024-05-28.log,2\a\2a8a11f61e87a01b0277e373d69fe064c4323b77

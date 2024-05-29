@@ -40,13 +40,12 @@ export const saveSpaceMission = async (req: Request, res: Response) => {
         });
     } catch (err) {
         const {message, status} = new InternalError(err);
-        log4js.getLogger().error('Error in creating student.', err);
+        log4js.getLogger().error('Error in creating spaceMission.', err);
         res.status(status).send({message});
     }
 };
 
 export const counts = async (req: Request, res: Response) => {
-    const groupId = req.params.groupId as string;
     try {
         const countSpaceMission = new CountsSpaceMissionsDto(req.body);
         const result = await countsSpaceMissionsApi(countSpaceMission);
@@ -55,7 +54,7 @@ export const counts = async (req: Request, res: Response) => {
         });
     } catch (err) {
         const {message, status} = new InternalError(err);
-        log4js.getLogger().error(`Error in retrieving student by group id ${groupId}.`, err);
+        log4js.getLogger().error(`Error in retrieving counts SpaceMission`, err);
         res.status(status).send({message});
     }
 };
