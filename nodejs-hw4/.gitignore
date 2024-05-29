@@ -1,5 +1,6 @@
 dist
 node_modules
-docker
 log
+/docker/
 .idea
+.nyc_output
