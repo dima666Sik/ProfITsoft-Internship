@@ -1,3 +1,4 @@
+
 import * as authorities from "constants/authorities";
 import SecretePage from "pages/secret";
 import React from "react";
