@@ -1,15 +1,5 @@
 version: '3.5'
 services:
-  nodejs-hw3:
-    build: .
-    ports:
-      - '8888:8888'
-    depends_on:
-      - db
-    networks:
-      - app-network
-    environment:
-      - NODE_ENV=prod
   db:
     image: mongo:7.0.9
     ports:
