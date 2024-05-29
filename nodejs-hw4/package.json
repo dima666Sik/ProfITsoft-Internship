@@ -7,13 +7,12 @@
     "devel": "set NODE_ENV=dev && nodemon --exec ts-node -r tsconfig-paths/register ./src/index.ts",
     "start": "npm run build && node ./dist/index.js",
     "build": "npx tsc",
-    "test": "mocha --timeout 30000 --exit -r ts-node/register -r tsconfig-paths/register src/test/**/spacemissions.test.ts",
-    "coverage": "nyc npm run test",
+    "coverage": "nyc mocha --timeout 10000 --extensions ts --spec 'src/test/**/*.ts' --node-option import=tsx --watch-files 'src/test/**/*.ts'",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix"
   },
   "nyc": {
     "check-coverage": true,
-    "lines": 80,
+    "lines": 80
   },
   "_moduleAliases": {
     "src": "dist"
@@ -25,7 +24,6 @@
     "axios": "^1.7.2",
     "chai-http": "^4.4.0",
     "consul": "^1.2.0",
-    "cors": "^2.8.5",
     "express": "^4.19.2",
     "http-status": "^1.7.4",
     "log4js": "^6.9.1",
@@ -35,14 +33,14 @@
   "devDependencies": {
     "@types/chai": "^4.3.16",
     "@types/consul": "^0.40.3",
-    "@types/cors": "^2.8.17",
     "@types/express": "^4.17.21",
     "@types/mocha": "^10.0.6",
     "@types/node": "^20.12.12",
     "@types/sinon": "^17.0.3",
     "@typescript-eslint/eslint-plugin": "^7.11.0",
     "@typescript-eslint/parser": "^7.11.0",
-    "chai": "^5.1.1",
+    "axios-mock-adapter": "^1.22.0",
+    "chai": "^4.3.7",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
     "mocha": "^10.4.0",
@@ -52,6 +50,7 @@
     "sinon": "^18.0.0",
     "ts-node": "^10.9.2",
     "tsconfig-paths": "^4.2.0",
+    "tsx": "^4.11.0",
     "typescript": "^5.4.5"
   }
 }
