@@ -49,6 +49,7 @@ export const counts = async (req: Request, res: Response) => {
   try {
     const countSpaceMission = new CountsSpaceMissionsDto(req.body);
     const result = await countsSpaceMissionsApi(countSpaceMission);
+
     res.send({
       result,
     });
