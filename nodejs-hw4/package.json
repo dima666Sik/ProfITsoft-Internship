@@ -7,7 +7,8 @@
     "devel": "set NODE_ENV=dev && nodemon --exec ts-node -r tsconfig-paths/register ./src/index.ts",
     "start": "npm run build && node ./dist/index.js",
     "build": "npx tsc",
-    "coverage": "nyc mocha --timeout 10000 --extensions ts --spec 'src/test/**/*.ts' --node-option import=tsx --watch-files 'src/test/**/*.ts'",
+    "test": "mocha --timeout 10000 --extensions ts --spec 'src/test/**/*.ts' --node-option import=tsx --watch-files 'src/test/**/*.ts'",
+    "coverage": "nyc npm run test",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix"
   },
   "nyc": {
