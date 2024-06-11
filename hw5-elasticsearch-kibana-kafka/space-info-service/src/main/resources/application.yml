@@ -1,0 +1,36 @@
+spring:
+  application:
+    name: space-info-service
+
+  datasource:
+    url: jdbc:postgresql://localhost:5443/space_db
+    username: dimasik666
+    password: password
+
+  jpa:
+    show-sql: true
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: validate
+
+  liquibase:
+    enabled: true
+
+  kafka:
+    producer:
+      client-id: ${spring.application.name}
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+  config:
+    import: .env[.properties]
+
+server:
+  port: 8080
+
+kafka:
+  topic:
+    planetReceived: planetReceived
+
+admin:
+  email: ${ADMIN_EMAIL}

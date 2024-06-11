@@ -1,0 +1,104 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-schema
+      author: Dima Kohol
+      changes:
+      - createTable:
+          tableName: planetary_systems
+          columns:
+            - column:
+                name: id
+                type: bigint
+                autoIncrement: true
+                constraints:
+                  primaryKey: true
+                  nullable: false
+            - column:
+                name: name
+                type: varchar(255)
+                constraints:
+                  nullable: false
+      - createTable:
+          tableName: mass
+          columns:
+            - column:
+                name: id
+                type: bigint
+                autoIncrement: true
+                constraints:
+                  primaryKey: true
+                  nullable: false
+            - column:
+                name: unit
+                type: smallint
+                constraints:
+                  nullable: false
+            - column:
+                name: value
+                type: double
+                constraints:
+                  nullable: false
+      - createTable:
+          tableName: diameter
+          columns:
+            - column:
+                name: id
+                type: bigint
+                autoIncrement: true
+                constraints:
+                  primaryKey: true
+                  nullable: false
+            - column:
+                name: unit
+                type: smallint
+                constraints:
+                  nullable: false
+            - column:
+                name: value
+                type: double
+                constraints:
+                  nullable: false
+      - createTable:
+          tableName: planets
+          columns:
+            - column:
+                name: id
+                type: bigint
+                autoIncrement: true
+                constraints:
+                  primaryKey: true
+                  nullable: false
+            - column:
+                name: name
+                type: varchar(255)
+            - column:
+                name: has_rings
+                type: boolean
+            - column:
+                name: has_moons
+                type: boolean
+            - column:
+                name: atmospheric_composition
+                type: varchar(255)
+            - column:
+                name: mass_id
+                type: bigint
+                constraints:
+                  foreignKeyName: mass_id
+                  referencedTableName: mass
+                  referencedColumnNames: id
+            - column:
+                name: diameter_id
+                type: bigint
+                constraints:
+                  foreignKeyName: diameter_id
+                  referencedTableName: diameter
+                  referencedColumnNames: id
+            - column:
+                name: planetary_system_id
+                type: bigint
+                constraints:
+                  foreignKeyName: planetary_system_id
+                  referencedTableName: planetary_systems
+                  referencedColumnNames: id
+                  nullable: true

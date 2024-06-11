@@ -1,0 +1,23 @@
+databaseChangeLog:
+  - changeSet:
+      id: insert_planetary_systems
+      author: Dima Kohol
+      changes:
+        - insert:
+            tableName: planetary_systems
+            columns:
+              - column:
+                  name: id
+                  value: "0"
+              - column:
+                  name: name
+                  value: "Planetary System X0"
+        - insert:
+            tableName: planetary_systems
+            columns:
+              - column:
+                  name: id
+                  value: "1"
+              - column:
+                  name: name
+                  value: "Planetary System X1"
