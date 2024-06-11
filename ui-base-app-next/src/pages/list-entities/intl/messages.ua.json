@@ -1,0 +1,19 @@
+{
+  "title": "Список планет",
+  "messageEmptyPlanetList": "Список планет порожній",
+  "planetName": "Назва планети",
+  "hasRings": "Планета має кільця",
+  "hasMoons": "На планеті є супутники",
+  "atmosphericComposition": "Атмосфера складається з",
+  "planetarySystemName": "Назва планетарної системи",
+  "fetchAllPlanetError": "Помилка прр отриманні всіх планет",
+  "fetchAllPlanetSuccess": "Отримання всіх планет пройшло успішно",
+  "deleteSuccess": "Видалення планети пройшло упішно",
+  "deleteError": "Помилка при видаленні планети",
+  "btnFilter": "Фільтр",
+  "btnCreatePlanet": "Додати сутність",
+  "loading": "Завантаження...",
+  "filterError": "Помилка фільтрації планет",
+  "filterSuccess": "Успішно відфільтрували планети",
+  "unknown": "Невідом(а)ий"
+}

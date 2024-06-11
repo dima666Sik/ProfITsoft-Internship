@@ -1,0 +1,6 @@
+dist
+node_modules
+log
+/docker/
+.idea
+.nyc_output

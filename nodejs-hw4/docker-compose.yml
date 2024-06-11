@@ -1,0 +1,13 @@
+version: '3.5'
+services:
+  db:
+    image: mongo:7.0.9
+    ports:
+      - '27018:27017'
+    volumes:
+      - ./docker/data/mongo/db:/data/db
+    networks:
+      - app-network
+
+networks:
+  app-network:

@@ -4,6 +4,7 @@
   "page.default": "Головна",
   "page.login": "Логiн",
   "page.secret": "Секретна Сторiнка",
+  "page.list-entities": "Список планет",
   "signIn": "Увiйти",
   "signOut": "Вийти"
 }
