@@ -17,8 +17,8 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import ua.code.intership.proft.it.soft.EmailSenderApplication;
+import ua.code.intership.proft.it.soft.domain.dto.message.PlanetReceivedMessage;
 import ua.code.intership.proft.it.soft.domain.model.Message;
-import ua.code.intership.proft.it.soft.model.dto.message.PlanetReceivedMessage;
 import ua.code.intership.proft.it.soft.repository.EmailRepository;
 import ua.code.intership.proft.it.soft.service.config.TestElasticSearchConfiguration;
 

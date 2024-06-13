@@ -7,8 +7,8 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import ua.code.intership.proft.it.soft.domain.dto.message.PlanetReceivedMessage;
 import ua.code.intership.proft.it.soft.domain.model.Message;
-import ua.code.intership.proft.it.soft.model.dto.message.PlanetReceivedMessage;
 import ua.code.intership.proft.it.soft.repository.EmailRepository;
 
 import java.time.LocalDateTime;
