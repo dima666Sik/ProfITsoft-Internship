@@ -1,9 +1,7 @@
 # HW5 ELASTICSEARCH KIBANA KAFKA
 
 If you want to start project please firstly use command `docker compose up`.<br>
-And secondly local start 2 microservices. 
-In the docker-compose command to create container with these 
-microservices was commented out because issues.
+
 
 You can send `http://localhost:8080/api/planet`
 and body can be like that:
